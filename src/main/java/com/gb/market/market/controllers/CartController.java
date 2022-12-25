@@ -20,8 +20,8 @@ public class CartController {
 
     @PutMapping("/{id}")
     public void addProductToCart(@PathVariable Long id) {
-        Product product = productService.findProductById(id).get();
-        cart.addToCart(new ProductDTO().createProductDTO(product));
+        productService.findProductById(id).ifPresent(product -> cart.addToCart(
+                new ProductDTO().createProductDTO(product)));
     }
 
     @GetMapping
@@ -31,7 +31,9 @@ public class CartController {
 
     @DeleteMapping("/{id}")
     public void deleteProductFromCart(@PathVariable Long id) {
-        cart.deleteFromCart(id);
+        if (id != null) {
+            cart.deleteFromCart(id);
+        }
     }
 
 }

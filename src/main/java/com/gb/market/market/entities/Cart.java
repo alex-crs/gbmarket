@@ -5,39 +5,48 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.LinkedList;
-import java.util.function.Consumer;
 
 @NoArgsConstructor
 @Data
 public class Cart {
     private final LinkedList<ProductDTO> cartMap = new LinkedList<>();
 
+    //добавляет элемент в список
+    //если элемент уже существует, инкрементирует его количество
     public void addToCart(ProductDTO product) {
-        final boolean[] success = new boolean[1];
-        cartMap.forEach(productDTO -> {
-            if (productDTO.getId() == product.getId()) {
-                int amount = productDTO.getAmount();
-                productDTO.setAmount(++amount);
-                success[0] = true;
-            }
-        });
+        ProductDTO currentProduct = cartMap.stream().filter(productDTO ->
+                productDTO.getId() == product.getId()).findFirst().orElse(null);
 
-        if (!success[0]) {
+        if (currentProduct == null) {
             cartMap.add(product);
+        } else {
+            increaseAmount(currentProduct);
         }
     }
 
-
+    //удаляет элемент из корзины по id
+    //если количество элементов продукта больше одного, то декрементирует количество
     public void deleteFromCart(long id) {
-        cartMap.forEach(productDTO -> {
-            if (productDTO.getId() == id) {
-                if (productDTO.getAmount() == 1) {
-                    cartMap.remove(productDTO);
-                } else {
-                    int amount = productDTO.getAmount();
-                    productDTO.setAmount(--amount);
-                }
-            }
-        });
+        ProductDTO currentProduct = cartMap.stream().filter(productDTO ->
+                productDTO.getId() == id).findFirst().orElse(null);
+
+        if (currentProduct != null && currentProduct.getAmount() > 1) {
+            decreaseAmount(currentProduct);
+        } else {
+            cartMap.remove(currentProduct);
+        }
     }
+
+    //повышает количество продуктов в представлении
+    private void increaseAmount(ProductDTO product) {
+        int amount = product.getAmount();
+        product.setAmount(++amount);
+    }
+
+    //понижает количество продуктов в представлении
+    private void decreaseAmount(ProductDTO product) {
+        int amount = product.getAmount();
+        product.setAmount(--amount);
+    }
+
 }
