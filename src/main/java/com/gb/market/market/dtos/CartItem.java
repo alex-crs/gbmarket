@@ -1,19 +1,20 @@
 package com.gb.market.market.dtos;
 
 import com.gb.market.market.entities.Product;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class ProductDTO implements Comparable<ProductDTO> {
+@NoArgsConstructor
+@AllArgsConstructor
+public class CartItem implements Comparable<CartItem> {
     private long id;
     private String title;
     private int price;
     private int amount;
 
-    public ProductDTO() {
-    }
-
-    public ProductDTO createProductDTO(Product product) {
+    public CartItem createCartItemDTO(Product product) {
         this.id = product.getId();
         this.title = product.getTitle();
         this.price = product.getPrice();
@@ -22,7 +23,7 @@ public class ProductDTO implements Comparable<ProductDTO> {
     }
 
     @Override
-    public int compareTo(ProductDTO o) {
+    public int compareTo(CartItem o) {
         int result = -1;
         if (this.id == o.getId()) {
             result++;

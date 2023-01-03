@@ -23,10 +23,9 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     };
 
     $scope.addToCart = function (productId) {
-        $http.put('http://localhost:8189/gbmarket/api/v1/cart/' + productId).then(function (response) {
+        $http.get('http://localhost:8189/gbmarket/api/v1/cart/add/' + productId).then(function (response) {
             alert("Товар успешно добавлен в корзину");
         });
-
     };
 
 });

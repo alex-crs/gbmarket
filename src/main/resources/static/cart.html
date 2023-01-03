@@ -57,14 +57,26 @@
             <td>Действие</td>
         </tr>
         <tbody>
-        <tr ng-repeat="p in ProductsList">
+        <tr ng-repeat="p in ProductsList.cartMap">
             <td>{{p.id}}</td>
             <td>{{p.title}}</td>
-            <td>{{p.amount}}</td>
+            <td><button type="button" class="btn btn-secondary" ng-click="deleteProductFromCart(p.id)"><b2>-</b2></button> {{p.amount}} <button type="button" class="btn btn-secondary" ng-click="addToCart(p.id)"><b2>+</b2></button></td>
             <td>{{p.price}}</td>
             <td>{{p.price*p.amount}}</td>
             <td>
-                <button class="btn btn-danger" ng-click="deleteProductFromCart(p.id)">Delete</button>
+                <button class="btn btn-danger" ng-click="deleteProductStringFromCart(p.id)">Удалить товар</button>
+            </td>
+        </tr>
+        </tbody>
+        <tbody>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Итого</td>
+            <td>{{ProductsList.cartCost}}</td>
+            <td>
+                <button class="btn btn-danger" ng-click="clearCart()">Очистить корзину</button>
             </td>
         </tr>
         </tbody>

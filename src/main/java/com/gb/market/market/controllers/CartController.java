@@ -1,39 +1,41 @@
 package com.gb.market.market.controllers;
 
-import com.gb.market.market.dtos.ProductDTO;
 import com.gb.market.market.entities.Cart;
-import com.gb.market.market.entities.Product;
-import com.gb.market.market.services.ProductService;
+import com.gb.market.market.services.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/cart")
 @RequiredArgsConstructor
 public class CartController {
-    private final ProductService productService;
-    private static final Cart cart = new Cart();
+    private final CartService cartService;
 
-    @PutMapping("/{id}")
+    @GetMapping("/add/{id}")
     public void addProductToCart(@PathVariable Long id) {
-        productService.findProductById(id).ifPresent(product -> cart.addToCart(
-                new ProductDTO().createProductDTO(product)));
+        cartService.add(id);
     }
 
     @GetMapping
-    public LinkedList<ProductDTO> findCartProduct() {
-        return cart.getCartMap();
+    public Cart getCurrentCart() {
+        return cartService.getCurrentCart();
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/delete/{id}")
     public void deleteProductFromCart(@PathVariable Long id) {
         if (id != null) {
-            cart.deleteFromCart(id);
+            cartService.delete(id);
         }
+    }
+
+    @GetMapping("/delete/clear")
+    public void clearCart() {
+        cartService.getCurrentCart().clearCart();
+    }
+
+    @GetMapping("/delete/productAmounts/{id}")
+    public void deleteProductWithAmounts(@PathVariable Long id) {
+        cartService.getCurrentCart().deleteProductWithAmountsFromCart(id);
     }
 
 }
