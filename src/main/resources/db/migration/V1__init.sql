@@ -7,6 +7,24 @@ create table products
     updated_at timestamp default current_timestamp
 );
 
+create table cart_order
+(
+    id           bigserial primary key,
+    order_number double
+);
+
+create table cart_item
+(
+    id       bigserial primary key,
+    item_id  double,
+    title    varchar(255),
+    price    int,
+    order_id bigint references cart_order (id) ON DELETE CASCADE
+
+);
+
+
+
 insert into products(title, price)
 
 values ('Milk', 80),
