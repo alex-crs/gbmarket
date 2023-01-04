@@ -37,20 +37,4 @@ public class CartController {
     public void deleteProductWithAmounts(@PathVariable Long id) {
         cartService.getCurrentCart().deleteProductWithAmountsFromCart(id);
     }
-
-    @GetMapping("/bdAdd/{id}")
-    public void addToBDCart(@PathVariable Long id){
-        cartService.addToBdCartFromBD(id);
-    }
-
-    @GetMapping("/bdCart")
-    public Cart getCurrentBDCart() {
-        return cartService.getBDCart();
-    }
-
-    @GetMapping("/clearBDCart")
-    public void addToBDCart(){
-        cartService.clearBDCart();
-    }
-
 }

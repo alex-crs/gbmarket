@@ -1,6 +1,5 @@
 package com.gb.market.market.dtos;
 
-import com.gb.market.market.entities.BDCartItem;
 import com.gb.market.market.entities.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,14 +18,6 @@ public class CartItem implements Comparable<CartItem> {
         this.id = product.getId();
         this.title = product.getTitle();
         this.price = product.getPrice();
-        amount = 1;
-        return this;
-    }
-
-    public CartItem createCartItemDTO(BDCartItem bdCartItem) {
-        this.id = bdCartItem.getItem_id();
-        this.title = bdCartItem.getTitle();
-        this.price = bdCartItem.getPrice();
         amount = 1;
         return this;
     }
