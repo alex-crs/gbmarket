@@ -13,7 +13,7 @@ public class CartController {
 
     @GetMapping("/add/{id}")
     public void addProductToCart(@PathVariable Long id) {
-        cartService.add(id);
+        cartService.addToCartFromBD(id);
     }
 
     @GetMapping
@@ -24,7 +24,7 @@ public class CartController {
     @GetMapping("/delete/{id}")
     public void deleteProductFromCart(@PathVariable Long id) {
         if (id != null) {
-            cartService.delete(id);
+            cartService.getCurrentCart().deleteFromCart(id);
         }
     }
 
@@ -37,5 +37,4 @@ public class CartController {
     public void deleteProductWithAmounts(@PathVariable Long id) {
         cartService.getCurrentCart().deleteProductWithAmountsFromCart(id);
     }
-
 }
