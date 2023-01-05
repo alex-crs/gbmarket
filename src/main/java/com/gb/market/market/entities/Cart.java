@@ -30,6 +30,7 @@ public class Cart {
         cartMap.forEach(cartItem -> cartCost += (cartItem.getPrice() * cartItem.getAmount()));
     }
 
+    //TODO добавить возможность добавления пачки продуктов за 1 раз
     //добавляет элемент в список
     //если элемент уже существует, инкрементирует его количество
     public void addToCart(CartItem product) {
