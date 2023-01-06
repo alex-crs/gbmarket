@@ -1,4 +1,4 @@
-angular.module('app', []).controller('indexController', function ($scope, $http) {
+angular.module('app', ['ngStorage']).controller('indexController', function ($scope, $http) {
 
     $scope.loadProductsFromCart = function () {
         $http.get('http://localhost:8189/gbmarket/api/v1/cart').then(function (response) {

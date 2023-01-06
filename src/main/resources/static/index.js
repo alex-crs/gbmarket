@@ -1,6 +1,6 @@
 //в текущем методе мы создаем некое приложение app и привязываем его к indexController.
 //index.html мы работаем с intexController
-angular.module('app', []).controller('indexController', function ($scope, $http) {
+angular.module('app', ['ngStorage']).controller('indexController', function ($scope, $http) {
 
     $scope.loadProducts = function () {
         $http.get('http://localhost:8189/gbmarket/api/v1/products').then(function (response) {

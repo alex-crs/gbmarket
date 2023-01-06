@@ -2,6 +2,7 @@ package com.gb.market.market.controllers;
 
 import com.gb.market.market.dtos.JwtRequest;
 import com.gb.market.market.dtos.JwtResponse;
+import com.gb.market.market.dtos.StringResponse;
 import com.gb.market.market.services.UserService;
 import com.gb.market.market.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,5 +38,10 @@ public class AuthController {
         String token = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @GetMapping("/auth_check")
+    public StringResponse autCheck(Principal principal){
+        return new StringResponse(principal.getName());
     }
 }
