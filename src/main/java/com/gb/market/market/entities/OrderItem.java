@@ -1,5 +1,6 @@
 package com.gb.market.market.entities;
 
+import com.gb.market.market.dtos.CartItem;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,8 +35,8 @@ public class OrderItem {
     @Column(name = "price_per_product")
     private int pricePerProduct;
 
-    @Column(name = "price")
-    private int price;
+    @Column(name = "total_price")
+    private int totalPrice;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -44,5 +45,4 @@ public class OrderItem {
     @CreationTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
 }

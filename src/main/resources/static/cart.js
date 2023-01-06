@@ -1,4 +1,4 @@
-angular.module('app', ['ngStorage']).controller('indexController', function ($scope, $http) {
+angular.module('app', ['ngStorage']).controller('indexController', function ($scope, $http, $localStorage) {
 
     $scope.loadProductsFromCart = function () {
         $http.get('http://localhost:8189/gbmarket/api/v1/cart').then(function (response) {
@@ -20,7 +20,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         });
     };
 
-    $scope.clearCart = function (){
+    $scope.clearCart = function () {
         $http.get('http://localhost:8189/gbmarket/api/v1/cart/delete/clear').then(function (response) {
             $scope.loadProductsFromCart();
         });
@@ -30,6 +30,25 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         $http.get('http://localhost:8189/gbmarket/api/v1/cart/add/' + productId).then(function (response) {
             $scope.loadProductsFromCart();
         });
+    };
+
+    $scope.createOrder = function () {
+        if ($localStorage.currentUser) {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
+        }
+            $http.post('http://localhost:8189/gbmarket/api/v1/order/create', $scope.orderInfo).then(function (response) {
+                if (response.status===201){
+                    $scope.loadProductsFromCart();
+                    alert("Заказ успешно создан");
+                }
+            },function (response){
+                if (response.status===401){
+                    alert("ОШИБКА! Перед созданием заказа необходимо авторизоваться");
+                }
+                if (response.status===423){
+                    alert("ОШИБКА! В корзине отсутствуют товары")
+                }
+            });
     };
 
 });

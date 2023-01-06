@@ -30,7 +30,9 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         } else {
             return false;
         }
+    };
 
+    $scope.run = function() {
         if ($localStorage.currentUser) {
             try {
                 let jwt = $localStorage.currentUser.token;
@@ -47,6 +49,8 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
         }
     };
+
+    $scope.run();
 
 
     $scope.checkAuth = function () {

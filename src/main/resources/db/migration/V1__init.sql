@@ -45,7 +45,7 @@ create table order_items
     title             varchar(255),
     amount            int,
     price_per_product int,
-    price             int,
+    total_price       int,
     created_at        timestamp default current_timestamp,
     updated_at        timestamp default current_timestamp
 );

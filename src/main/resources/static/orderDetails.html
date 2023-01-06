@@ -11,11 +11,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
-    <script src="cart.js"></script>
+    <script src="orderDetails.js"></script>
     <title>GeekBrains market</title>
 </head>
-
-
 <body>
 
 <div class="container" ng-controller="indexController">
@@ -23,6 +21,7 @@
     <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html">Обратно в магазин</a>
+            <a class="navbar-brand" href="orders.html">Заказы</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02"
                     aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -46,53 +45,39 @@
 
 
     <h1>Market</h1>
-    <form class="order_form" ng-submit="createOrder()">
-        <div class="form-floating mb-3">
-            <label for="floatingInput1">Адрес доставки:</label>
-            <input type="text" class="form-control" id="floatingInput1" ng-model="orderInfo.address" placeholder="Адрес доставки">
-        </div>
-        <div class="form-floating">
-            <label for="floatingInput2">Номер телефона:</label>
-            <input type="text" class="form-control" id="floatingInput2"  ng-model="orderInfo.phone" placeholder="Номер телефона">
-        </div>
-        <div class="submit_btn">
-            <button class="btn btn-danger" ng-click="#" type="submit">Создать заказ</button>
-        </div>
-    </form>
+    <div class="form-floating">
+        <label>Номер заказа: {{OrderList.orderId}}</label>
+    </div>
+    <div class="form-floating">
+        <label>Дата создания: {{OrderList.createdAt}}</label>
+    </div>
+    <div class="form-floating mb-3">
+        <label>Сумма заказа: {{OrderList.totalPrice}}</label>
+    </div>
+    <div class="form-floating mb-3">
+        <label>Адрес доставки: {{OrderList.address}}</label>
+    </div>
+    <div class="form-floating">
+        <label>Телефон: {{OrderList.phone}}</label>
+    </div>
+    <div>
+        <button class="btn btn-danger" ng-click="loadOrders()">Детали заказа</button>
+    </div>
 
-    <h3>Ваша корзина</h3>
+    <h3>Позиции заказа</h3>
     <table class="table table-hover" cellpadding="" 0 cellspacing="0">
         <tr>
-            <td>Артикул</td>
             <td>Наименование</td>
             <td>Количество</td>
-            <td>Цена</td>
-            <td>Сумма</td>
-            <td>Действие</td>
+            <td>Цена за единицу</td>
+            <td>Общая сумма</td>
         </tr>
         <tbody>
-        <tr ng-repeat="p in ProductsList.cartMap">
-            <td>{{p.id}}</td>
+        <tr ng-repeat="p in OrderList.items">
             <td>{{p.title}}</td>
-            <td><button type="button" class="btn btn-secondary" ng-click="deleteProductFromCart(p.id)"><b2>-</b2></button> {{p.amount}} <button type="button" class="btn btn-secondary" ng-click="addToCart(p.id)"><b2>+</b2></button></td>
-            <td>{{p.price}}</td>
-            <td>{{p.price*p.amount}}</td>
-            <td>
-                <button class="btn btn-danger" ng-click="deleteProductStringFromCart(p.id)">Удалить товар</button>
-            </td>
-        </tr>
-        </tbody>
-        <tbody>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>Итого</td>
-            <td>{{ProductsList.cartCost}}</td>
-            <td>
-                <button class="btn btn-danger" ng-click="clearCart()">Очистить корзину</button>
-                <button class="btn btn-danger" ng-click="createOrder()">Создать заказ</button>
-            </td>
+            <td>{{p.amount}}</td>
+            <td>{{p.pricePerProduct}}</td>
+            <td>{{p.totalPrice}}</td>
         </tr>
         </tbody>
     </table>

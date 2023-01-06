@@ -14,12 +14,10 @@ import javax.annotation.PostConstruct;
 public class CartService {
     private final ProductService productService;
     private Cart cart;
-    private long orderNumber;
 
     @PostConstruct
     public void init() {
         cart = new Cart();
-        orderNumber = 1;
     }
 
     // TODO пересмотреть логику этого метода
