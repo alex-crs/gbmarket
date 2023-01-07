@@ -1,13 +1,11 @@
 package com.gb.market.market.dtos;
 
 import com.gb.market.market.entities.Order;
-import com.gb.market.market.entities.OrderItem;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 @Data
 public class OrderDTOFullInfo {
@@ -25,7 +23,7 @@ public class OrderDTOFullInfo {
         this.address = order.getAddress();
         this.phone = order.getPhone();
         items = new ArrayList<>();
-        order.getItems().stream().forEach(orderItem ->
+        order.getItems().forEach(orderItem ->
                 items.add(new OrderItemDTO().createOrderItemDTO(orderItem)));
         return this;
     }

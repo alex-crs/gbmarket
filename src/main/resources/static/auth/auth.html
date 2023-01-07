@@ -11,18 +11,18 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
-    <script src="orders.js"></script>
+    <script src="auth.js"></script>
+    <link rel="stylesheet" href="auth.css">
     <title>GeekBrains market</title>
 </head>
 
 
 <body>
-
 <div class="container" ng-controller="indexController">
 
     <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">Обратно в магазин</a>
+            <a class="navbar-brand" href="../cart/cart.html">Корзина</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02"
                     aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -31,7 +31,7 @@
             <div class="collapse navbar-collapse" id="navbarsExample02">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="auth.html">Login</a>
+                        <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
@@ -46,29 +46,33 @@
 
 
     <h1>Market</h1>
+    <div class="password">
+        <form class="password_form" ng-submit="tryToAuth()" ng-show="!isUserLoggedIn()">
+            <h3 class="password_field_header">Авторизация:</h3>
+            <div class="password_fields">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" ng-model="user.username" placeholder="Username">
+                    <label for="floatingInput">Имя пользователя</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="floatingPassword"  ng-model="user.password" placeholder="Password">
+                    <label for="floatingPassword">Пароль</label>
+                </div>
+                <div class="submit_btn">
+                    <button class="btn btn-danger" ng-click="#" type="submit">Принять</button>
+                </div>
+            </div>
 
+        </form>
+        <div>
+            <h3 ng-show="isUserLoggedIn()"><button class="btn btn-danger" ng-click="tryToLogout()" type="submit">Выйти</button></h3>
+        </div>
+        <div>
+            <h3><button class="btn btn-danger" ng-click="checkAuth()">Кто я?</button></h3>
+        </div>
 
-    <h3>Ваши заказы:</h3>
-    <table class="table table-hover" cellpadding="" 0 cellspacing="0">
-        <tr>
-            <td>№ заказа</td>
-            <td>Дата</td>
-            <td>Сумма</td>
-            <td>Действия</td>
-        </tr>
-        <tbody>
-        <tr ng-repeat="p in OrderList">
-            <td>{{p.orderId}}</td>
-            <td>{{p.createdAt}}</td>
-            <td>{{p.totalPrice}}</td>
-            <td>
-                <button class="btn btn-danger" ng-click="goTo(p.orderId)">Детали заказа</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    </div>
 
 </div>
-
 </body>
 </html>
