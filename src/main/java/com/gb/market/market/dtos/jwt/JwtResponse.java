@@ -1,4 +1,4 @@
-package com.gb.market.market.dtos;
+package com.gb.market.market.dtos.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

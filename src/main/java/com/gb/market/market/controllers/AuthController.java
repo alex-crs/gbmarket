@@ -1,7 +1,7 @@
 package com.gb.market.market.controllers;
 
-import com.gb.market.market.dtos.JwtRequest;
-import com.gb.market.market.dtos.JwtResponse;
+import com.gb.market.market.dtos.jwt.JwtRequest;
+import com.gb.market.market.dtos.jwt.JwtResponse;
 import com.gb.market.market.dtos.StringResponse;
 import com.gb.market.market.services.UserService;
 import com.gb.market.market.utils.JwtTokenUtil;

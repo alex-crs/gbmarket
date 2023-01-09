@@ -1,15 +1,12 @@
 package com.gb.market.market.services;
 
-import com.gb.market.market.dtos.CartItem;
-import com.gb.market.market.dtos.OrderInfo;
+import com.gb.market.market.dtos.order.OrderInfo;
 import com.gb.market.market.entities.*;
 import com.gb.market.market.exceptions.ResourceNotFoundException;
 import com.gb.market.market.repositories.OrderItemRepository;
 import com.gb.market.market.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.function.Consumer;
 
 @Service
 @RequiredArgsConstructor

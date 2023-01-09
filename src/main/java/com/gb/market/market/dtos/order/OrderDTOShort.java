@@ -1,4 +1,4 @@
-package com.gb.market.market.dtos;
+package com.gb.market.market.dtos.order;
 
 import com.gb.market.market.entities.Order;
 import lombok.Data;

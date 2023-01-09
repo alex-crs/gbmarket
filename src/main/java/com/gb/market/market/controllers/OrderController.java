@@ -1,17 +1,15 @@
 package com.gb.market.market.controllers;
 
-import com.gb.market.market.dtos.OrderDTOFullInfo;
-import com.gb.market.market.dtos.OrderDTOShort;
-import com.gb.market.market.dtos.OrderInfo;
+import com.gb.market.market.dtos.DTOConverter;
+import com.gb.market.market.dtos.order.OrderDTOFullInfo;
+import com.gb.market.market.dtos.order.OrderDTOShort;
+import com.gb.market.market.dtos.order.OrderInfo;
 import com.gb.market.market.entities.Order;
 import com.gb.market.market.entities.User;
-import com.gb.market.market.exceptions.AppError;
-import com.gb.market.market.exceptions.GlobalExceptionHandler;
 import com.gb.market.market.exceptions.ResourceNotFoundException;
 import com.gb.market.market.repositories.OrderRepository;
 import com.gb.market.market.services.CartService;
 import com.gb.market.market.services.OrderService;
-import com.gb.market.market.services.ProductService;
 import com.gb.market.market.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,7 +20,6 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 @RestController
 @RequiredArgsConstructor
@@ -63,7 +60,7 @@ public class OrderController {
     public OrderDTOFullInfo checkOrderInfo(Principal principal, @PathVariable Long id) {
         Optional<Order> order = orderRepository.findById(id);
         if (order.isPresent() && principal.getName().equals(order.get().getUser().getName())) {
-            return new OrderDTOFullInfo().createOrderDTOFullInfo(order.get());
+            return DTOConverter.createOrderDTOFullInfoFromOrder(order.get());
         }
         return null;
     }
