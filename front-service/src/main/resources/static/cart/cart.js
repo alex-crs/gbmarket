@@ -32,6 +32,8 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         });
     };
 
+
+
     $scope.createOrder = function () {
         if ($localStorage.currentUser) {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;

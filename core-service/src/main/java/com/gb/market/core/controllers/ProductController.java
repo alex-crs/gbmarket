@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
+@CrossOrigin("*") //обрабатывает любые запросы
 public class ProductController {
     private final ProductService productService;
 
@@ -25,7 +26,7 @@ public class ProductController {
                 new ResourceNotFoundException("Продукт не найден, id: " + id));
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/delete/{id}")
     public void deleteProductById(@PathVariable Long id) {
         productService.deleteProductById(id);
     }

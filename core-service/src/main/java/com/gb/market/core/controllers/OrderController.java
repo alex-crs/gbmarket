@@ -4,7 +4,7 @@ import com.gb.market.core.dtos.order.DTOConverter;
 import com.gb.market.api.dtos.ResourceNotFoundException;
 import com.gb.market.core.dtos.order.OrderDTOFullInfo;
 import com.gb.market.core.dtos.order.OrderDTOShort;
-import com.gb.market.core.dtos.order.OrderInfo;
+import com.gb.market.api.dtos.OrderInfo;
 import com.gb.market.core.integrations.CartServiceIntegration;
 import com.gb.market.core.repositories.OrderRepository;
 //import com.gb.market.core.dtos.DTOConverter;
@@ -14,7 +14,6 @@ import com.gb.market.core.entities.User;
 //import com.gb.market.core.services.CartService;
 import com.gb.market.core.services.OrderService;
 import com.gb.market.core.services.UserService;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +27,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/order")
+@CrossOrigin("*") //обрабатывает любые запросы
 public class OrderController {
     private final UserService userService;
     private final OrderService orderService;

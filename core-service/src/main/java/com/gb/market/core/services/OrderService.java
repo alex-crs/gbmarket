@@ -2,7 +2,7 @@ package com.gb.market.core.services;
 
 import com.gb.market.api.dtos.CartDTO;
 import com.gb.market.api.dtos.ResourceNotFoundException;
-import com.gb.market.core.dtos.order.OrderInfo;
+import com.gb.market.api.dtos.OrderInfo;
 import com.gb.market.core.integrations.CartServiceIntegration;
 import com.gb.market.core.repositories.OrderItemRepository;
 import com.gb.market.core.repositories.OrderRepository;
