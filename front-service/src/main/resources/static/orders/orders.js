@@ -12,7 +12,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
     $scope.goTo = function (orderId) {
         $localStorage.currentOrder = orderId;
-        window.location.href = 'http://localhost:8189/gbmarket/orderDetails/orderDetails.html';
+        window.location.href = 'http://localhost:8191/gbmarket/orderDetails/orderDetails.html';
     };
 
 
