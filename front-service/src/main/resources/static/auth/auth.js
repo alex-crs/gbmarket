@@ -1,7 +1,7 @@
 angular.module('app', ['ngStorage']).controller('indexController', function ($scope, $http, $localStorage) {
 
     $scope.tryToAuth = function () {
-        $http.post("http://localhost:8191/gbmarket/auth", $scope.user)
+        $http.post("http://localhost:8189/gbmarket/auth", $scope.user)
             .then(function successCallback(response) {
                 if (response.data.token) {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
