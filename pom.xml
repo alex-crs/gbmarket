@@ -8,6 +8,7 @@
         <module>cart-service</module>
         <module>api</module>
         <module>front-service</module>
+        <module>config-service</module>
     </modules>
 
 
