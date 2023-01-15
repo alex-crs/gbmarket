@@ -1,7 +1,12 @@
 server:
   port: 8190
   servlet:
-    context-path: /gbmarket
-
+    context-path: /gbmarket-carts
+integrations:
+  product-service:
+    url: http://localhost:5555/core/
+    read-timeout: 10000
+    write-timeout: 5000
+    connect-timeout: 5000
 
 

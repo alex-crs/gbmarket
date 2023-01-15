@@ -1,6 +1,6 @@
-package com.gb.market.core.configs;
+package com.gb.market.auth.configs;
 
-import com.gb.market.core.utils.JwtTokenUtil;
+import com.gb.market.auth.utils.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

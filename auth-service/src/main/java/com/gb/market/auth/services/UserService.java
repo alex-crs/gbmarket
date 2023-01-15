@@ -1,8 +1,9 @@
-package com.gb.market.core.services;
+package com.gb.market.auth.services;
 
-import com.gb.market.core.entities.User;
-import com.gb.market.core.repositories.UserRepository;
-import com.gb.market.core.entities.Role;
+
+import com.gb.market.auth.entities.Role;
+import com.gb.market.auth.entities.User;
+import com.gb.market.auth.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import java.util.Collection;
 import java.util.Optional;

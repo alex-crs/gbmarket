@@ -1,6 +1,6 @@
-package com.gb.market.carts.configs;
+package com.gb.market.core.configs;
 
-import com.gb.market.carts.properties.ProductServiceIntegrationProperties;
+import com.gb.market.core.properties.CartsServiceIntegrationProperties;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
@@ -17,23 +17,23 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 @EnableConfigurationProperties(
-        ProductServiceIntegrationProperties.class
+        CartsServiceIntegrationProperties.class
 )
 
 @RequiredArgsConstructor
 public class AppConfig {
-    private final ProductServiceIntegrationProperties productServiceIntegrationProperties;
+    private final CartsServiceIntegrationProperties cartsServiceIntegrationProperties;
 
     @Bean
     public WebClient productServiceWebClient() {
         TcpClient tcpClient = TcpClient.create()
-                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, productServiceIntegrationProperties.getConnectTimeout())
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, cartsServiceIntegrationProperties.getConnectTimeout())
                 .doOnConnected(connection -> {
-                    connection.addHandlerLast(new ReadTimeoutHandler(productServiceIntegrationProperties.getReadTimeout(), TimeUnit.MILLISECONDS))
-                            .addHandlerLast(new WriteTimeoutHandler(productServiceIntegrationProperties.getWriteTimeout(), TimeUnit.MILLISECONDS
+                    connection.addHandlerLast(new ReadTimeoutHandler(cartsServiceIntegrationProperties.getReadTimeout(), TimeUnit.MILLISECONDS))
+                            .addHandlerLast(new WriteTimeoutHandler(cartsServiceIntegrationProperties.getWriteTimeout(), TimeUnit.MILLISECONDS
                             ));
                 });
-        return WebClient.builder().baseUrl(productServiceIntegrationProperties.getUrl())
+        return WebClient.builder().baseUrl(cartsServiceIntegrationProperties.getUrl())
                 .clientConnector(new ReactorClientHttpConnector(HttpClient.from(tcpClient))).build();
     }
 

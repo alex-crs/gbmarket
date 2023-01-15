@@ -28,8 +28,7 @@ public class CartService {
 
     //Добавляет в корзину пользователя продукт из базы данных (формируя DTO)
     public void addToCartFromBD(long productId) {
-        ProductDTO productDTO = productServiceIntegration.getProductById(productId).orElseThrow(() ->
-                new ResourceNotFoundException("Продукт невозможно добавить id: " + productId));
+        ProductDTO productDTO = productServiceIntegration.getProductById(productId);
         cart.addToCart(new CartItem().createCartItemDTO(productDTO));
     }
 }

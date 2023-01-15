@@ -11,12 +11,12 @@ public class GateWayApp {
     public static void main(String[] args) {
         SpringApplication.run(GateWayApp.class, args);
     }
-    @Bean
-    public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
-        return builder.routes()
-                .route("gbmarket", r -> r.path("/gbmarket")
-                        .uri("http://localhost:8191/gbmarket"))
-
-                .build();
-    }
+//    @Bean
+//    public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+//        return builder.routes()
+//                .route("gbmarket", r -> r.path("/gbmarket")
+//                        .uri("http://localhost:8191/gbmarket"))
+//
+//                .build();
+//    }
 }

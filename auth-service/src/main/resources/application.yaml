@@ -1,11 +1,11 @@
 server:
-  port: 8189
+  port: 8989
   servlet:
-    context-path: /gbmarket-core
+    context-path: /gbmarket-auth
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:mydatabase;MODE=PostgreSQL
+    url: jdbc:h2:file:./user;MODE=PostgreSQL
     username: sa
     password:
   jpa:
@@ -18,11 +18,10 @@ spring:
       settings:
         web-allow-others: true
       enabled: true
-integrations:
-  cart-service:
-    url: http://localhost:5555/carts/
-    read-timeout: 10000
-    write-timeout: 5000
-    connect-timeout: 5000
+jwt:
+  secret: fgs#$dghdfs%#$234hdfslgdfjb43t34t534og$4352
+  lifetime: 300000000
+
+
 
 

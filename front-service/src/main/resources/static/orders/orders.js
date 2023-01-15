@@ -1,10 +1,10 @@
 angular.module('app', ['ngStorage']).controller('indexController', function ($scope, $http, $localStorage) {
 
     $scope.loadOrders = function () {
-        if ($localStorage.currentUser) {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
-        }
-        $http.get('http://localhost:8189/gbmarket/api/v1/order/checkAll').then(function (response) {
+        // if ($localStorage.currentUser) {
+        //     $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
+        // }
+        $http.get('http://localhost:5555/core/api/v1/order/checkAll/'+ $localStorage.currentUser.username).then(function (response) {
             $scope.OrderList = response.data;
         });
     };
@@ -12,7 +12,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
     $scope.goTo = function (orderId) {
         $localStorage.currentOrder = orderId;
-        window.location.href = 'http://localhost:8191/gbmarket/orderDetails/orderDetails.html';
+        window.location.href = 'http://localhost:5555/market/orderDetails/orderDetails.html';
     };
 
 

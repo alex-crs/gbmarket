@@ -21,12 +21,12 @@ public class OrderService {
     private final CartServiceIntegration cartServiceIntegration;
 
     @Transactional
-    public void createOrder(User user, OrderInfo orderInfo) {
+    public void createOrder(String user, OrderInfo orderInfo) {
         Order order = new Order();
         order.setAddress(orderInfo.getAddress());
         order.setPhone(orderInfo.getPhone());
-        order.setUser(user);
-        CartDTO cartDTO = cartServiceIntegration.getCart().get();
+        order.setUserName(user);
+        CartDTO cartDTO = cartServiceIntegration.getCart();
         order.setTotalPrice(cartDTO.getCartCost());
         orderRepository.save(order);
         cartDTO.getCartMap().forEach(cartItem -> {

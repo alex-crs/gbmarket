@@ -5,5 +5,5 @@ spring:
     config:
       server:
         git:
-          uri: file:///z:/GBmarket
+          uri: file:///z:/ConfigStorage
 #          search-paths: ${GIT_SEARCH_PATH}

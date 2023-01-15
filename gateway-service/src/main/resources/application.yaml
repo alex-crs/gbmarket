@@ -1,2 +1,51 @@
 server:
-  port: 8194
+  port: 5555
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:8191"
+            allowedMethods:
+              -GET
+              -POST
+            allowedHeaders: "*"
+      routes:
+        - id: core-service
+          uri: http://localhost:8189
+          predicates:
+            - Path=/core/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/gbmarket-core
+#            - JwtAuthFilter
+        - id: cart-service
+          uri: http://localhost:8190
+          predicates:
+            - Path=/carts/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/gbmarket-carts
+#            - JwtAuthFilter
+        - id: front-server
+          uri: http://localhost:8191
+          predicates:
+            - Path=/market/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/gbmarket
+#            - JwtAuthFilter
+        - id: auth-server
+          uri: http://localhost:8989
+          predicates:
+            - Path=/authorization/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/gbmarket-auth
+#            - JwtAuthFilter
+jwt:
+  secret: fgs#$dghdfs%#$234hdfslgdfjb43t34t534og$4352
+  lifetime: 300000000

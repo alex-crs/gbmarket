@@ -5,7 +5,10 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
         }
         let id = $localStorage.currentOrder;
-        $http.get('http://localhost:8189/gbmarket/api/v1/order/check/' + id).then(function (response) {
+        let CurrentUser ={
+            username: $localStorage.currentUser.username
+        }
+        $http.post('http://localhost:5555/core/api/v1/order/check/' + id, CurrentUser).then(function (response) {
             $scope.OrderList = response.data;
         });
     };
