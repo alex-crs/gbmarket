@@ -1,10 +1,15 @@
 package com.gb.market.api.dtos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartDTO {
     private List<CartItemDTO> cartMap;
     private int cartCost;
+
+    public CartDTO() {
+        cartMap = new ArrayList<>();
+    }
 
     public List<CartItemDTO> getCartMap() {
         return cartMap;

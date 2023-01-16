@@ -28,6 +28,7 @@ public class OrderController {
     private final CartServiceIntegration cartServiceIntegration;
 
     @PostMapping("/create")
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> createOrder(@RequestBody OrderInfo orderInfo) {
         if (orderInfo.getUsername() != null && cartServiceIntegration.getCart().getCartMap().size() > 0) {
             orderService.createOrder(orderInfo.getUsername(), orderInfo);
@@ -41,6 +42,7 @@ public class OrderController {
     }
 
     @GetMapping("/checkAll/{username}")
+    @ResponseStatus(HttpStatus.OK)
     public List<OrderDTOShort> checkOrders(@PathVariable String username) {
         if (username != null) {
             List<Order> orderPerUser = orderRepository.findAllByUserName(username); //TODO тут ошибка на пустой заказ
@@ -52,6 +54,7 @@ public class OrderController {
     }
 
     @PostMapping("/check/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public OrderDTOFullInfo checkOrderInfo(@RequestBody CurrentUser currentUser, @PathVariable Long id) {
         Optional<Order> order = orderRepository.findById(id);
         if (order.isPresent() && currentUser.getUsername().equals(order.get().getUserName())) {

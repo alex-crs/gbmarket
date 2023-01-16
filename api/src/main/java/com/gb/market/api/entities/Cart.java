@@ -1,6 +1,6 @@
-package com.gb.market.carts.entities;
+package com.gb.market.api.entities;
 
-import com.gb.market.carts.dtos.CartItem;
+import com.gb.market.api.dtos.CartItem;
 import lombok.Data;
 
 import java.util.Collections;
@@ -30,6 +30,10 @@ public class Cart {
         cartMap.forEach(cartItem -> cartCost += (cartItem.getPrice() * cartItem.getAmount()));
     }
 
+    public CartItem getItemByTitle(String title){
+        return cartMap.stream().filter(cartItem -> cartItem.getTitle().equals(title))
+                .findFirst().orElse(null);
+    }
     //TODO добавить возможность добавления пачки продуктов за 1 раз
     //добавляет элемент в список
     //если элемент уже существует, инкрементирует его количество

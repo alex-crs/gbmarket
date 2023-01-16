@@ -4,6 +4,7 @@ import com.gb.market.api.dtos.ResourceNotFoundException;
 import com.gb.market.core.entities.Product;
 import com.gb.market.core.services.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class ProductController {
     }
 
     @GetMapping("/delete/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public void deleteProductById(@PathVariable Long id) {
         productService.deleteProductById(id);
     }

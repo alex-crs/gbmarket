@@ -1,6 +1,5 @@
-package com.gb.market.carts.dtos;
+package com.gb.market.api.dtos;
 
-import com.gb.market.api.dtos.ProductDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +20,7 @@ public class CartItem implements Comparable<CartItem> {
         amount = 1;
         return this;
     }
+
 
     @Override
     public int compareTo(CartItem o) {

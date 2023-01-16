@@ -1,7 +1,7 @@
 package com.gb.market.carts.controllers;
 
+import com.gb.market.api.converter.CartConverter;
 import com.gb.market.api.dtos.CartDTO;
-import com.gb.market.carts.converter.CartConverter;
 import com.gb.market.carts.services.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*") //обрабатывает любые запросы
 public class CartController {
     private final CartService cartService;
-    private final CartConverter cartConverter;
 
     @GetMapping("/add/{id}")
     public void addProductToCart(@PathVariable Long id) {
@@ -21,7 +20,7 @@ public class CartController {
 
     @GetMapping
     public CartDTO getCurrentCart() {
-        return cartConverter.modelToDto(cartService.getCurrentCart());
+        return CartConverter.convertToCartDTO(cartService.getCurrentCart());
     }
 
     @GetMapping("/delete/{id}")

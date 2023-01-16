@@ -1,10 +1,9 @@
 package com.gb.market.carts.services;
 
 import com.gb.market.api.dtos.ProductDTO;
-import com.gb.market.api.dtos.ResourceNotFoundException;
 import com.gb.market.carts.integrations.ProductServiceIntegration;
-import com.gb.market.carts.dtos.CartItem;
-import com.gb.market.carts.entities.Cart;
+import com.gb.market.api.dtos.CartItem;
+import com.gb.market.api.entities.Cart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
