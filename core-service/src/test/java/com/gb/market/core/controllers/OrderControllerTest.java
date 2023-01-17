@@ -55,7 +55,7 @@ class OrderControllerTest{
         product.setTitle("TestProduct");
         product.setPrice(3500);
         productRepository.save(product);
-        ProductDTO productDTO = ProductConverter.convertFromProduct(product);
+        ProductDTO productDTO = ProductConverter.convertToProductDTO(product);
         cartItemDTO = CartConverter.convertToCartItemDTO(new CartItem().createCartItemDTO(productDTO));
         cartDTO.setCartCost(cartItemDTO.getPrice());
         cartDTO.getCartMap().add(cartItemDTO);

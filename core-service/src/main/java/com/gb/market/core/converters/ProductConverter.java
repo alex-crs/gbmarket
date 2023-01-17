@@ -5,7 +5,7 @@ import com.gb.market.core.entities.Product;
 
 public class ProductConverter {
 
-    public static ProductDTO convertFromProduct(Product product) {
+    public static ProductDTO convertToProductDTO(Product product) {
         ProductDTO productDTO = new ProductDTO();
         productDTO.setId(product.getId());
         productDTO.setTitle(product.getTitle());

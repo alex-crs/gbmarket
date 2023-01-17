@@ -23,6 +23,12 @@ public class Product {
     @Column(name = "price")
     private int price;
 
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "image")
+    private String image;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
