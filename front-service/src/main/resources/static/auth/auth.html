@@ -36,9 +36,6 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="http://localhost:5555/market/orders/orders.html">Заказы</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="http://localhost:5555/market/auth/auth.html">Вход</a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -46,6 +43,13 @@
 
 
     <h1>Market</h1>
+    <div ng-show="isUserLoggedIn()">
+        <label>
+            <h3>
+                Добро пожаловать в магазин {{userName}}
+            </h3>
+        </label>
+    </div>
     <div class="password">
         <form class="password_form" ng-submit="tryToAuth()" ng-show="!isUserLoggedIn()">
             <h3 class="password_field_header">Авторизация:</h3>

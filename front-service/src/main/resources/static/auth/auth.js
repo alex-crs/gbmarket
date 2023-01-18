@@ -9,11 +9,20 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
                     $scope.user.username = null;
                     $scope.user.password = null;
+                    showUserName();
                 }
             }, function errorCallback(response) {
                 alert("Неверное имя или пароль")
             });
     };
+
+    function showUserName (){
+        if ($localStorage.currentUser){
+            $scope.userName = $localStorage.currentUser.username;
+        }
+    };
+
+    showUserName();
 
     $scope.tryToLogout = function () {
         $scope.clearUser();
@@ -52,4 +61,6 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     };
 
     $scope.run();
+
 });
+

@@ -1,0 +1,13 @@
+.password_fields {
+    padding-left: 30%;
+    padding-right: 30%;
+    padding-top: 20px;
+}
+
+h3.password_field_header {
+    text-align-last: center;
+}
+
+.table_element{
+    cursor: pointer;
+}

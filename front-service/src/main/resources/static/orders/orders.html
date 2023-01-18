@@ -12,6 +12,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
     <script src="orders.js"></script>
+    <link rel="stylesheet" href="orders.css">
     <title>GeekBrains market</title>
 </head>
 
@@ -37,7 +38,7 @@
                         <a class="nav-link active" aria-current="page" href="http://localhost:5555/market/orders/orders.html">Заказы</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="http://localhost:5555/market/auth/auth.html">Вход</a>
+                        <a class="nav-link active" aria-current="page" href="http://localhost:5555/market/auth/auth.html">{{enterView}}</a>
                     </li>
                 </ul>
             </div>
@@ -54,16 +55,12 @@
             <td>№ заказа</td>
             <td>Дата</td>
             <td>Сумма</td>
-            <td>Действия</td>
         </tr>
         <tbody>
-        <tr ng-repeat="p in OrderList">
-            <td>{{p.orderId}}</td>
+        <tr class="table_element" ng-click="goTo(p.orderId)" ng-repeat="p in OrderList">
+            <td >{{p.orderId}}</td>
             <td>{{p.createdAt}}</td>
             <td>{{p.totalPrice}}</td>
-            <td>
-                <button class="btn btn-danger" ng-click="goTo(p.orderId)">Детали заказа</button>
-            </td>
         </tr>
         </tbody>
     </table>

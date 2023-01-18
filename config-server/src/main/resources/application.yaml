@@ -5,6 +5,6 @@ spring:
     config:
       server:
         git:
-#          uri: file:///z:/ConfigStorage
-          uri: file://Users/alekseyandreev/Documents/ConfigBase
+          uri: file:///z:/ConfigStorage
+#          uri: file://Users/alekseyandreev/Documents/ConfigBase
 #          search-paths: ${GIT_SEARCH_PATH}

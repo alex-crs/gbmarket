@@ -32,7 +32,15 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         });
     };
 
+    function changeEnterView (){
+        if ($localStorage.currentUser){
+            $scope.enterView = "Выход";
+        } else {
+            $scope.enterView = "Вход";
+        }
+    };
 
+    changeEnterView();
 
     $scope.createOrder = function () {
         if ($localStorage.currentUser) {
