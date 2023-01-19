@@ -26,6 +26,4 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         window.location.href = 'http://localhost:5555/market/orderDetails/orderDetails.html';
     };
 
-
-
 });

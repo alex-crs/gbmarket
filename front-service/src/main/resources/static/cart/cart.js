@@ -49,8 +49,8 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         }
             $http.post('http://localhost:5555/core/api/v1/order/create', $scope.orderInfo).then(function (response) {
                 if (response.status===201){
-                    $scope.loadProductsFromCart();
                     alert("Заказ успешно создан");
+                    window.location.href = 'http://localhost:5555/market/index.html';
                 }
             },function (response){
                 if (response.status===401){

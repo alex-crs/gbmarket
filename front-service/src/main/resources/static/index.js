@@ -1,12 +1,18 @@
 //в текущем методе мы создаем некое приложение app и привязываем его к indexController.
 //index.html мы работаем с indexController
 angular.module('app', ['ngStorage']).controller('indexController', function ($scope, $http, $localStorage) {
-    $localStorage.viewDto = {
-        "currentPage": "0",
-        "maxItemsOnThePage": "5",
-        "sortBy": "id",
-        "sortType": "ASC"
-    };
+
+    let currentViewDtoCondition = function (){
+        if (!$localStorage.viewDto){
+            $localStorage.viewDto = {
+                "currentPage": "0",
+                "maxItemsOnThePage": "5",
+                "sortBy": "id",
+                "sortType": "ASC"
+            };
+        }
+    }
+
 
     function changeEnterView (){
         if ($localStorage.currentUser){
@@ -20,6 +26,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
 
     $scope.loadProducts = function () {
+        currentViewDtoCondition.caller;
         $http.post('http://localhost:5555/core/api/v1/products', $localStorage.viewDto).then(function (response) {
             $scope.ViewDTO = response.data;
         });
@@ -72,6 +79,11 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             $scope.ViewDTO = response.data;
         });
     }
+
+    $scope.goToProductInfo = function (productId) {
+        $localStorage.selectedProduct = productId;
+        window.location.href = 'http://localhost:5555/market/productDetails/productDetails.html';
+    };
 
 });
 

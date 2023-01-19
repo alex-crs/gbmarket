@@ -2,6 +2,7 @@ package com.gb.market.core.controllers;
 
 import com.gb.market.api.dtos.ResourceNotFoundException;
 import com.gb.market.core.converters.ProductConverter;
+import com.gb.market.core.dtos.ProductFullInfo;
 import com.gb.market.core.dtos.ViewDTO;
 import com.gb.market.core.entities.Product;
 import com.gb.market.core.services.ProductService;
@@ -35,6 +36,12 @@ public class ProductController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void deleteProductById(@PathVariable Long id) {
         productService.deleteProductById(id);
+    }
+
+    @GetMapping("/info/{id}")
+    public ProductFullInfo findProductFullInfoByID(@PathVariable Long id) {
+        return ProductConverter.convertToProductFullInfo(productService.findProductById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Продукт не найден, id: " + id)));
     }
 
 }

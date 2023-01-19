@@ -1,6 +1,7 @@
 package com.gb.market.core.converters;
 
 import com.gb.market.api.dtos.ProductDTO;
+import com.gb.market.core.dtos.ProductFullInfo;
 import com.gb.market.core.dtos.ViewDTO;
 import com.gb.market.core.entities.Product;
 import org.springframework.data.domain.Page;
@@ -26,5 +27,14 @@ public class ProductConverter {
         }
         viewDTO.setProductList(products.toList());
         return viewDTO;
+    }
+
+    public static ProductFullInfo convertToProductFullInfo(Product product) {
+        ProductFullInfo productFullInfo = new ProductFullInfo();
+        productFullInfo.setId(product.getId());
+        productFullInfo.setTitle(product.getTitle());
+        productFullInfo.setPrice(product.getPrice());
+        productFullInfo.setDescription(product.getDescription());
+        return productFullInfo;
     }
 }
