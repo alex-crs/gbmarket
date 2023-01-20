@@ -13,7 +13,6 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         }
     }
 
-
     function changeEnterView (){
         if ($localStorage.currentUser){
             $scope.enterView = "Выход";

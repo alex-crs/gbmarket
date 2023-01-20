@@ -21,7 +21,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/order")
-@CrossOrigin("*") //обрабатывает любые запросы
+//@CrossOrigin("*") //обрабатывает любые запросы
 public class OrderController {
     private final OrderService orderService;
     private final OrderRepository orderRepository;

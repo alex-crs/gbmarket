@@ -1,5 +1,7 @@
 package com.gb.market.core.controllers;
 
+import com.gb.market.api.dtos.ProductDTO;
+import com.gb.market.core.dtos.ViewDTO;
 import com.gb.market.core.entities.Product;
 import com.gb.market.core.repositories.ProductRepository;
 import com.gb.market.core.services.ProductService;
@@ -8,13 +10,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.reactive.function.BodyInserters;
 
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ProductControllerTest{
+class ProductControllerTest {
 
     static Product product;
+
+    static ViewDTO requestViewDTO;
 
     @Autowired
     ProductService productService;
@@ -29,19 +34,32 @@ class ProductControllerTest{
         product = new Product();
         product.setTitle("TestProduct");
         product.setPrice(350);
+
+        requestViewDTO = new ViewDTO();
+        requestViewDTO.setCurrentPage(0);
+        requestViewDTO.setSortType("ASC");
+        requestViewDTO.setSortBy("id");
+        requestViewDTO.setMaxItemsOnThePage(Integer.MAX_VALUE);
     }
 
     @Test
     void findAllProducts() {
-        productRepository.save(product);
-        List<?> productList = webTestClient.get()
+        product = productRepository.save(product);
+        ViewDTO viewDTOS = webTestClient.post()
                 .uri("/api/v1/products")
+                .body(BodyInserters.fromValue(requestViewDTO))
                 .exchange()
-                .expectBody(List.class)
+                .expectBody(ViewDTO.class)
                 .returnResult()
                 .getResponseBody();
-        Assertions.assertNotNull(productList);
+        Assertions.assertNotNull(viewDTOS);
+        List<Product> productList = viewDTOS.getProductList();
+        Product savedProduct = productList.stream().filter((e) -> e.getTitle()
+                .equals(product.getTitle())).findFirst().orElse(null);
         Assertions.assertTrue(productList.size() > 0);
+        Assertions.assertNotNull(savedProduct);
+        Assertions.assertEquals(product.getTitle(), savedProduct.getTitle());
+        Assertions.assertEquals(product.getPrice(), savedProduct.getPrice());
     }
 
     @Test

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/cart")
 @RequiredArgsConstructor
-@CrossOrigin("*") //обрабатывает любые запросы
+//@CrossOrigin("*") //обрабатывает любые запросы
 public class CartController {
     private final CartService cartService;
 

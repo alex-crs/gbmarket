@@ -16,14 +16,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
-@CrossOrigin("*") //отключает CORS запрет
+//@CrossOrigin("*") //отключает CORS запрет
 public class ProductController {
     private final ProductService productService;
 
     @PostMapping
     public ViewDTO findAllProducts(@RequestBody ViewDTO viewDTO) {
         return ProductConverter.convertToViewDTO(productService.findAll(viewDTO));
-//        return productService.findAll();
     }
 
     @GetMapping("/{id}")
