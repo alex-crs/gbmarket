@@ -25,7 +25,7 @@ public class JwtTokenUtil {
     }
 
     public List<String> getRoles(String token) {
-        return getAllClaimsFromToken(token).get("roles",List.class);
+        return getAllClaimsFromToken(token).get("roles", List.class);
     }
 
     private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
@@ -33,10 +33,18 @@ public class JwtTokenUtil {
         return claimsResolver.apply(claims);
     }
 
-    private Claims getAllClaimsFromToken(String token) {
+    public Claims getAllClaimsFromToken(String token) {
         return Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    public boolean isInvalid(String token) {
+        return this.isTokenExpired(token);
+    }
+
+    private boolean isTokenExpired(String token) {
+        return this.getAllClaimsFromToken(token).getExpiration().before(new Date());
     }
 }
