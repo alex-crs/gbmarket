@@ -41,11 +41,11 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/checkAll/{username}")
+    @GetMapping("/checkAll")
     @ResponseStatus(HttpStatus.OK)
-    public List<OrderDTOShort> checkOrders(@PathVariable String username) {
+    public List<OrderDTOShort> checkOrders(@RequestHeader String username) {
         if (username != null) {
-            List<Order> orderPerUser = orderRepository.findAllByUserName(username); //TODO тут ошибка на пустой заказ
+            List<Order> orderPerUser = orderRepository.findAllByUserName(username);
             List<OrderDTOShort> ordersDTO = new ArrayList<>();
             orderPerUser.forEach(order -> ordersDTO.add(new OrderDTOShort().createOrderDTO(order)));
             return ordersDTO;
@@ -55,9 +55,9 @@ public class OrderController {
 
     @PostMapping("/check/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public OrderDTOFullInfo checkOrderInfo(@RequestBody CurrentUser currentUser, @PathVariable Long id) {
+    public OrderDTOFullInfo checkOrderInfo(@RequestHeader String username, @PathVariable Long id) {
         Optional<Order> order = orderRepository.findById(id);
-        if (order.isPresent() && currentUser.getUsername().equals(order.get().getUserName())) {
+        if (order.isPresent() && username.equals(order.get().getUserName())) {
             return DTOConverter.createOrderDTOFullInfoFromOrder(order.get());
         }
         return null;

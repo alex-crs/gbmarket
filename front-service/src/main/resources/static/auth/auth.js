@@ -1,4 +1,4 @@
-angular.module('app', ['ngStorage']).controller('indexController', function ($scope, $http, $localStorage) {
+angular.module('app').controller('authController', function ($scope, $http, $localStorage, $location) {
 
     $scope.tryToAuth = function () {
         $http.post("http://localhost:5555/authorization/auth", $scope.user)
@@ -10,8 +10,9 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
                     $scope.user.username = null;
                     $scope.user.password = null;
                     showUserName();
+                    $location.path('/');
                 }
-            }, function errorCallback(response) {
+            }, function errorCallback() {
                 alert("Неверное имя или пароль")
             });
     };
@@ -20,13 +21,14 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         if ($localStorage.currentUser){
             $scope.userName = $localStorage.currentUser.username;
         }
-    };
+    }
 
     showUserName();
 
     $scope.tryToLogout = function () {
         $scope.clearUser();
         $scope.user = null;
+        $location.path('/');
     };
 
     $scope.clearUser = function () {
@@ -42,25 +44,6 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         }
     };
 
-    $scope.run = function() {
-        if ($localStorage.currentUser) {
-            try {
-                let jwt = $localStorage.currentUser.token;
-                let payload = JSON.parse(atob(jwt.split('.')[1]));
-                let currentTime = parseInt(new Date().getTime() / 1000);
-                if (currentTime > payload.exp) {
-                    console.log("Token is expired!!!");
-                    delete $localStorage.currentUser;
-                    $http.defaults.headers.common.Authorization = '';
-                }
-            } catch (e) {
-
-            }
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
-        }
-    };
-
-    $scope.run();
 
 });
 

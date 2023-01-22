@@ -1,18 +1,14 @@
 package com.gb.market.core.services;
 
-import com.gb.market.api.dtos.ResourceNotFoundException;
 import com.gb.market.core.dtos.ViewDTO;
 import com.gb.market.core.repositories.ProductRepository;
 import com.gb.market.core.entities.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,11 +24,6 @@ public class ProductService {
                         viewDTO.getSortType().equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC,
                         viewDTO.getSortBy()));
     }
-
-    public List<Product> findAll() {
-        return productRepository.findAll();
-    }
-
 
     public Optional<Product> findProductById(Long id) {
         return productRepository.findById(id);

@@ -31,6 +31,8 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
                 final String token = getAuthHeader(request);
                 if (jwtUtil.isInvalid(token)) {
                     return this.onError(exchange, "Authorization header is invalid", HttpStatus.UNAUTHORIZED);
+                } else {
+                    populateRequestWithHeaders(exchange, token);
                 }
             }
             return chain.filter(exchange);

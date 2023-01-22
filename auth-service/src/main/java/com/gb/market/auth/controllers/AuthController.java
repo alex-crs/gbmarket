@@ -1,8 +1,10 @@
 package com.gb.market.auth.controllers;
 
 import com.gb.market.api.dtos.AppError;
+import com.gb.market.api.dtos.UserDTO;
 import com.gb.market.api.dtos.jwt.JwtRequest;
 import com.gb.market.api.dtos.jwt.JwtResponse;
+import com.gb.market.auth.converters.UserConverter;
 import com.gb.market.auth.services.UserService;
 import com.gb.market.auth.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;

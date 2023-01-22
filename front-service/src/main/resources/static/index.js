@@ -1,88 +1,67 @@
-//в текущем методе мы создаем некое приложение app и привязываем его к indexController.
-//index.html мы работаем с indexController
-angular.module('app', ['ngStorage']).controller('indexController', function ($scope, $http, $localStorage) {
+(function () {
+    angular
+        .module('app', ['ngRoute', 'ngStorage'])
+        .config(config)
+        .run(run);
 
-    let currentViewDtoCondition = function (){
-        if (!$localStorage.viewDto){
-            $localStorage.viewDto = {
-                "currentPage": "0",
-                "maxItemsOnThePage": "5",
-                "sortBy": "id",
-                "sortType": "ASC"
-            };
-        }
+    function config($routeProvider) {
+        $routeProvider
+            .when('/', {
+                templateUrl: 'startPage/startPage.html',
+                controller: 'startPageController'
+            })
+            .when('/index', {
+                templateUrl: 'index.html',
+                controller: 'indexController'
+            })
+            .when('/store', {
+                templateUrl: 'store/store.html',
+                controller: 'storeController'
+            })
+            .when('/cart', {
+                templateUrl: 'cart/cart.html',
+                controller: 'cartController'
+            })
+            .when('/orders', {
+                templateUrl: 'orders/orders.html',
+                controller: 'ordersController'
+            })
+            .when('/orderDetails', {
+                templateUrl: 'orderDetails/orderDetails.html',
+                controller: 'orderDetailsController'
+            })
+            .when('/auth', {
+                templateUrl: 'auth/auth.html',
+                controller: 'authController'
+            })
+            .when('/productDetails', {
+                templateUrl: 'productDetails/productDetails.html',
+                controller: 'productDetailsController'
+            });
     }
 
-    function changeEnterView (){
-        if ($localStorage.currentUser){
-            $scope.enterView = "Выход";
-        } else {
-            $scope.enterView = "Вход";
-        }
-    };
+    function run($rootScope, $http, $localStorage) {
+        if ($localStorage.currentUser) {
+            try {
+                let jwt = $localStorage.currentUser.token;
+                let payload = JSON.parse(atob(jwt.split('.')[1]));
+                let currentTime = parseInt(new Date().getTime() / 1000);
+                if (currentTime > payload.exp) {
+                    console.log("Token is expired!!!");
+                    delete $localStorage.currentUser;
+                    $http.defaults.headers.common.Authorization = '';
+                }
+            } catch (e) {
 
-    changeEnterView();
-
-
-    $scope.loadProducts = function () {
-        currentViewDtoCondition.caller;
-        $http.post('http://localhost:5555/core/api/v1/products', $localStorage.viewDto).then(function (response) {
-            $scope.ViewDTO = response.data;
-        });
-    };
-
-    $scope.loadProducts();
-
-    $scope.showProductInfo = function (productId) {
-        $http.get('http://localhost:5555/core/api/v1/products/' + productId).then(function (response) {
-            alert(response.data.title);
-        }, function (response) {
-            if (response.status === 404) {
-                alert("Продукт не найден");
             }
-        });
-    };
-
-    $scope.deleteProductById = function (productId) {
-        $http.get('http://localhost:5555/core/api/v1/products/delete/' + productId).then(function (response) {
-            $scope.loadProducts();
-        });
-    };
-
-    $scope.addToCart = function (productId) {
-        $http.get('http://localhost:5555/carts/api/v1/cart/add/' + productId).then(function (response) {
-            alert("Товар успешно добавлен в корзину");
-        }, function () {
-            alert("Возникла проблема при добавлении в корзину");
-        });
-    };
-
-
-    $scope.toPage = function (page) {
-        $localStorage.viewDto.currentPage = page;
-        $http.post('http://localhost:5555/core/api/v1/products', $localStorage.viewDto).then(function (response) {
-            $scope.ViewDTO = response.data;
-        });
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
+        }
     }
+})();
 
-    $scope.changeSort = function (type) {
-        $localStorage.viewDto.sortType = type;
-        $http.post('http://localhost:5555/core/api/v1/products', $localStorage.viewDto).then(function (response) {
-            $scope.ViewDTO = response.data;
-        });
+angular.module('app').controller('indexController', function ($scope, $http, $location, $localStorage) {
+    $scope.isAuthUser = function () {
+        return !!$localStorage.currentUser;
     }
-
-    $scope.changeSortBy = function (type) {
-        $localStorage.viewDto.sortBy = type;
-        $http.post('http://localhost:5555/core/api/v1/products', $localStorage.viewDto).then(function (response) {
-            $scope.ViewDTO = response.data;
-        });
-    }
-
-    $scope.goToProductInfo = function (productId) {
-        $localStorage.selectedProduct = productId;
-        window.location.href = 'http://localhost:5555/market/productDetails/productDetails.html';
-    };
-
 });
 

@@ -1,0 +1,58 @@
+<div ng-controller="storeController">
+    <div class="form-check">
+        <input class="form-check-input" ng-click="changeSort('ASC')" type="radio" name="flexRadioDefault"
+               id="flexRadioDefault1" checked>
+        <label class="form-check-label" for="flexRadioDefault1">
+            По возрастанию
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" ng-click="changeSort('DESC')" type="radio" name="flexRadioDefault"
+               id="flexRadioDefault2">
+        <label class="form-check-label" for="flexRadioDefault2">
+            По убыванию
+        </label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" ng-click="changeSortBy('id')" type="radio" name="inlineRadioOptions"
+               id="inlineRadio1" value="option1" checked>
+        <label class="form-check-label" for="inlineRadio1">По артикулу</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" ng-click="changeSortBy('title')" type="radio" name="inlineRadioOptions"
+               id="inlineRadio2" value="option2">
+        <label class="form-check-label" for="inlineRadio2">По наименованию</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" ng-click="changeSortBy('price')" type="radio" name="inlineRadioOptions"
+               id="inlineRadio3" value="option2">
+        <label class="form-check-label" for="inlineRadio2">По цене</label>
+    </div>
+    <table class="table table-hover" cellpadding="" 0 cellspacing="0">
+        <tr>
+            <td>Артикул</td>
+            <td>Наименование</td>
+            <td>Цена</td>
+            <td>Действие</td>
+        </tr>
+        <tbody>
+        <tr class="table_element" ng-repeat="p in ViewDTO.productList">
+            <td ng-click="goToProductInfo(p.id)">{{p.id}}</td>
+            <td ng-click="goToProductInfo(p.id)">{{p.title}}</td>
+            <td ng-click="goToProductInfo(p.id)">{{p.price}}</td>
+            <td>
+                <button class="btn btn-primary" ng-click="addToCart(p.id)">Добавить в корзину</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="footer_pages">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item" ng-repeat="n in ViewDTO.pages">
+                    <a class="page-link" ng-click="toPage(n)">{{n+1}}</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

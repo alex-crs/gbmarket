@@ -1,4 +1,4 @@
-angular.module('app', ['ngStorage']).controller('indexController', function ($scope, $http, $localStorage) {
+angular.module('app').controller('cartController', function ($scope, $http, $localStorage) {
 
     $scope.loadProductsFromCart = function () {
         $http.get('http://localhost:5555/carts/api/v1/cart').then(function (response) {
