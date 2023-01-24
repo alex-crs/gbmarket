@@ -41,6 +41,7 @@
     }
 
     function run($rootScope, $http, $localStorage) {
+        $localStorage.mainHttpPath = 'http://localhost:5555';
         if ($localStorage.currentUser) {
             try {
                 let jwt = $localStorage.currentUser.token;

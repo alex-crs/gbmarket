@@ -1,5 +1,7 @@
 <div>
     <form class="order_form" ng-submit="createOrder()">
+        <h3>Ваша корзина</h3>
+
         <div class="form-floating mb-3">
             <label for="floatingInput1">Адрес доставки:</label>
             <input type="text" class="form-control" id="floatingInput1" ng-model="orderInfo.address"
@@ -10,12 +12,9 @@
             <input type="text" class="form-control" id="floatingInput2" ng-model="orderInfo.phone"
                    placeholder="Номер телефона">
         </div>
-        <div class="submit_btn">
-            <button class="btn btn-danger" ng-href="#" type="submit">Создать заказ</button>
-        </div>
     </form>
 
-    <h3>Ваша корзина</h3>
+
     <table class="table table-hover" cellpadding="" 0 cellspacing="0">
         <tr>
             <td>Артикул</td>

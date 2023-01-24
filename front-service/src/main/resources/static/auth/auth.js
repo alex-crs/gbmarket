@@ -1,7 +1,8 @@
 angular.module('app').controller('authController', function ($scope, $http, $localStorage, $location) {
+    const authPathController = 'http://localhost:5555/authorization';
 
     $scope.tryToAuth = function () {
-        $http.post("http://localhost:5555/authorization/auth", $scope.user)
+        $http.post(authPathController + '/auth', $scope.user)
             .then(function successCallback(response) {
                 if (response.data.token) {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
@@ -17,8 +18,8 @@ angular.module('app').controller('authController', function ($scope, $http, $loc
             });
     };
 
-    function showUserName (){
-        if ($localStorage.currentUser){
+    function showUserName() {
+        if ($localStorage.currentUser) {
             $scope.userName = $localStorage.currentUser.username;
         }
     }

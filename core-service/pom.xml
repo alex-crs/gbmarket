@@ -14,6 +14,7 @@
     <groupId>com.gb.market.market</groupId>
     <artifactId>core-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>

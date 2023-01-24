@@ -13,6 +13,7 @@
     <groupId>com.gb.market.market</groupId>
     <artifactId>front-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -30,10 +31,15 @@
             <artifactId>spring-cloud-config-client</artifactId>
             <version>3.0.7</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.gb.market.market</groupId>-->
+<!--            <artifactId>api</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
         <dependency>
-            <groupId>com.gb.market.market</groupId>
-            <artifactId>api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -49,10 +55,9 @@
     </dependencies>
 
     <build>
+
+<!--        <finalName>${artifactId}</finalName>-->
         <plugins>
-
-
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

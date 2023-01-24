@@ -1,8 +1,9 @@
 angular.module('app').controller('ordersController', function ($scope, $http, $localStorage, $location) {
+    const corePathController = $localStorage.mainHttpPath +'/core';
 
     $scope.loadOrders = function () {
         if ($localStorage.currentUser) {
-            $http.get('http://localhost:5555/core/api/v1/order/checkAll').then(function (response) {
+            $http.get(corePathController + '/api/v1/order/checkAll').then(function (response) {
                 $scope.OrderList = response.data;
             });
         }

@@ -1,6 +1,5 @@
 package com.gb.market.core.controllers;
 
-import com.gb.market.api.dtos.ProductDTO;
 import com.gb.market.core.dtos.ViewDTO;
 import com.gb.market.core.entities.Product;
 import com.gb.market.core.repositories.ProductRepository;
@@ -32,7 +31,7 @@ class ProductControllerTest {
 
     static {
         product = new Product();
-        product.setTitle("TestProduct");
+        product.setTitle("TestProduct123");
         product.setPrice(350);
 
         requestViewDTO = new ViewDTO();
