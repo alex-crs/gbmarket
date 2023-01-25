@@ -1,5 +1,6 @@
 package com.gb.market.core.controllers;
 
+import com.gb.market.api.dtos.AppError;
 import com.gb.market.api.dtos.CurrentUser;
 import com.gb.market.core.dtos.order.DTOConverter;
 import com.gb.market.core.dtos.order.OrderDTOFullInfo;

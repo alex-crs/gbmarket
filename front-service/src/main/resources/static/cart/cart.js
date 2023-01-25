@@ -4,7 +4,7 @@ angular.module('app').controller('cartController', function ($scope, $http, $loc
     const startPagePathController = $localStorage.mainHttpPath;
 
     $scope.loadProductsFromCart = function () {
-        $http.get(cartPathController + '/api/v1/cart/'+ $localStorage.guestUuid).then(function (response) {
+        $http.get(cartPathController + '/api/v1/cart/' + $localStorage.guestUuid).then(function (response) {
             $scope.ProductsList = response.data;
         });
     };
@@ -48,21 +48,32 @@ angular.module('app').controller('cartController', function ($scope, $http, $loc
     $scope.createOrder = function () {
         if ($localStorage.currentUser) {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
-            // $scope.orderInfo.username = $localStorage.currentUser.username;
         }
-        $http.post(corePathController + '/api/v1/order/create', $scope.orderInfo).then(function (response) {
-            if (response.status === 201) {
-                alert("Заказ успешно создан");
-                $location.path('/orders');
-            }
-        }, function (response) {
-            if (response.status === 401) {
-                alert("ОШИБКА! Перед созданием заказа необходимо авторизоваться");
-            }
-            if (response.status === 423) {
-                alert("ОШИБКА! В корзине отсутствуют товары")
-            }
-        });
+        if (checkFields().valueOf() > 0) {
+            $http.post(corePathController + '/api/v1/order/create', $scope.orderInfo).then(function (response) {
+                if (response.status === 201) {
+                    alert("Заказ успешно создан");
+                    $location.path('/orders');
+                }
+            }, function (response) {
+                if (response.status === 401) {
+                    alert("ОШИБКА! Перед созданием заказа необходимо авторизоваться");
+                }
+                if (response.status === 423) {
+                    alert("ОШИБКА! В корзине отсутствуют товары")
+                }
+            });
+        } else {
+            alert("Заполнены не все поля заказа")
+        }
+
     };
 
+    function checkFields() {
+        let count = 0;
+        if ($scope.orderInfo !== undefined) {
+            count++;
+        }
+        return count;
+    }
 });

@@ -22,14 +22,6 @@ public class CartService {
     private final ProductServiceIntegration productServiceIntegration;
     private final RedisTemplate<String, Object> redisTemplate;
 
-    //TODO почистить
-//    private Map<String, Cart> cart;
-//
-//    @PostConstruct
-//    public void init() {
-//        cart = new HashMap<>();
-//    }
-
     public Cart getCurrentCart(String uuid) {
         String targetUuid = cartPrefix + "_" + uuid;
         if (Boolean.FALSE.equals(redisTemplate.hasKey(targetUuid))) {
@@ -38,13 +30,8 @@ public class CartService {
         return (Cart) redisTemplate.opsForValue().get(targetUuid);
     }
 
-    //TODO почистить этот метод
-    //Добавляет в корзину пользователя продукт из базы данных (формируя DTO)
     public void addToCartFromBD(String uuid, long productId) {
         ProductDTO productDTO = productServiceIntegration.getProductById(productId);
-//        Cart cart = getCurrentCart(uuid);
-//        cart.addToCart(new CartItem().createCartItemDTO(productDTO));
-//        redisTemplate.opsForValue().set(uuid, cart);
         execute(uuid, cart -> cart.addToCart(new CartItem().createCartItemDTO(productDTO)));
     }
 
