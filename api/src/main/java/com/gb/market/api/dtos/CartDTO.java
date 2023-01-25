@@ -1,29 +1,19 @@
 package com.gb.market.api.dtos;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class CartDTO {
     private List<CartItemDTO> cartMap;
-    private int cartCost;
+    private BigDecimal cartCost;
 
     public CartDTO() {
         cartMap = new ArrayList<>();
-    }
-
-    public List<CartItemDTO> getCartMap() {
-        return cartMap;
-    }
-
-    public void setCartMap(List<CartItemDTO> cartMap) {
-        this.cartMap = cartMap;
-    }
-
-    public int getCartCost() {
-        return cartCost;
-    }
-
-    public void setCartCost(int cartCost) {
-        this.cartCost = cartCost;
     }
 }

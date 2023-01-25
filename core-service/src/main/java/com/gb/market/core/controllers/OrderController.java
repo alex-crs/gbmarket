@@ -29,12 +29,12 @@ public class OrderController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> createOrder(@RequestBody OrderInfo orderInfo) {
-        if (orderInfo.getUsername() != null && cartServiceIntegration.getCart().getCartMap().size() > 0) {
-            orderService.createOrder(orderInfo.getUsername(), orderInfo);
-            cartServiceIntegration.clearCart();
+    public ResponseEntity<?> createOrder(@RequestHeader(required = false) String username, @RequestBody OrderInfo orderInfo) {
+        if (username != null && cartServiceIntegration.getCart(username).getCartMap().size() > 0) {
+            orderService.createOrder(username, orderInfo);
+            cartServiceIntegration.clearCart(username);
             return new ResponseEntity<>(HttpStatus.CREATED);
-        } else if (cartServiceIntegration.getCart().getCartMap().size() == 0) {
+        } else if (username != null && cartServiceIntegration.getCart(username).getCartMap().size() == 0) {
             return new ResponseEntity<>(HttpStatus.LOCKED);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

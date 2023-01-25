@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +27,7 @@ public class OrderService {
         order.setAddress(orderInfo.getAddress());
         order.setPhone(orderInfo.getPhone());
         order.setUserName(user);
-        CartDTO cartDTO = cartServiceIntegration.getCart();
+        CartDTO cartDTO = cartServiceIntegration.getCart(user);
         order.setTotalPrice(cartDTO.getCartCost());
         orderRepository.save(order);
         cartDTO.getCartMap().forEach(cartItem -> {
@@ -38,7 +39,7 @@ public class OrderService {
             orderItem.setProduct(product);
             orderItem.setAmount(cartItem.getAmount());
             orderItem.setPricePerProduct(cartItem.getPrice());
-            orderItem.setTotalPrice(cartItem.getPrice() * cartItem.getAmount());
+            orderItem.setTotalPrice(cartItem.getPrice().multiply(BigDecimal.valueOf(cartItem.getAmount())));
             orderItem.setOrder(order);
             orderItemRepository.save(orderItem);
         });

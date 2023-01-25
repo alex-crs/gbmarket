@@ -2,11 +2,13 @@ package com.gb.market.api.dtos;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 public class CartItemDTO {
     private long id;
     private String title;
-    private int price;
+    private BigDecimal price;
     private int amount;
 
     public CartItemDTO() {

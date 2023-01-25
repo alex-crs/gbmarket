@@ -20,7 +20,7 @@ spring:
       enabled: true
 integrations:
   cart-service:
-    url: http://localhost:5555/carts/
+    url: http://localhost:8190/gbmarket-carts/
     read-timeout: 10000
     write-timeout: 5000
     connect-timeout: 5000

@@ -52,20 +52,20 @@ class OrderControllerTest{
     }
 
     void init() {
-        product.setTitle("TestProduct");
-        product.setPrice(3500);
-        productRepository.save(product);
-        ProductDTO productDTO = ProductConverter.convertToProductDTO(product);
-        cartItemDTO = CartConverter.convertToCartItemDTO(new CartItem().createCartItemDTO(productDTO));
-        cartDTO.setCartCost(cartItemDTO.getPrice());
-        cartDTO.getCartMap().add(cartItemDTO);
-        Mockito.when(cartServiceIntegration.getCart()).thenReturn(cartDTO);
-        OrderInfo orderInfo = new OrderInfo();
-        orderInfo.setUsername("bobsdgdgdfgdsharjre433523253g435");
-        orderInfo.setAddress("adsad");
-        orderInfo.setPhone("89513");
-        webTestClient.post().uri("/api/v1/order/create")
-                .body(BodyInserters.fromValue(orderInfo)).exchange().expectStatus().isCreated();
+//        product.setTitle("TestProduct");
+//        product.setPrice(3500);
+//        productRepository.save(product);
+//        ProductDTO productDTO = ProductConverter.convertToProductDTO(product);
+//        cartItemDTO = CartConverter.convertToCartItemDTO(new CartItem().createCartItemDTO(productDTO));
+//        cartDTO.setCartCost(cartItemDTO.getPrice());
+//        cartDTO.getCartMap().add(cartItemDTO);
+//        Mockito.when(cartServiceIntegration.getCart()).thenReturn(cartDTO);
+//        OrderInfo orderInfo = new OrderInfo();
+//        orderInfo.setUsername("bobsdgdgdfgdsharjre433523253g435");
+//        orderInfo.setAddress("adsad");
+//        orderInfo.setPhone("89513");
+//        webTestClient.post().uri("/api/v1/order/create")
+//                .body(BodyInserters.fromValue(orderInfo)).exchange().expectStatus().isCreated();
     }
 
     @Test

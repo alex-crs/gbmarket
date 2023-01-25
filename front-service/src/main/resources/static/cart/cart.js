@@ -1,10 +1,10 @@
-angular.module('app').controller('cartController', function ($scope, $http, $localStorage) {
+angular.module('app').controller('cartController', function ($scope, $http, $localStorage, $location) {
     const corePathController = $localStorage.mainHttpPath + '/core';
     const cartPathController = $localStorage.mainHttpPath + '/carts';
     const startPagePathController = $localStorage.mainHttpPath;
 
     $scope.loadProductsFromCart = function () {
-        $http.get(cartPathController + '/api/v1/cart').then(function (response) {
+        $http.get(cartPathController + '/api/v1/cart/'+ $localStorage.guestUuid).then(function (response) {
             $scope.ProductsList = response.data;
         });
     };
@@ -12,25 +12,25 @@ angular.module('app').controller('cartController', function ($scope, $http, $loc
     $scope.loadProductsFromCart();
 
     $scope.deleteProductFromCart = function (productID) {
-        $http.get(cartPathController + '/api/v1/cart/delete/' + productID).then(function (response) {
+        $http.get(cartPathController + '/api/v1/cart/' + $localStorage.guestUuid + '/delete/' + productID).then(function (response) {
             $scope.loadProductsFromCart();
         });
     };
 
     $scope.deleteProductStringFromCart = function (productID) {
-        $http.get(cartPathController + '/api/v1/cart/delete/productAmounts/' + productID).then(function (response) {
+        $http.get(cartPathController + '/api/v1/cart/' + $localStorage.guestUuid + '/delete/productAmounts/' + productID).then(function (response) {
             $scope.loadProductsFromCart();
         });
     };
 
     $scope.clearCart = function () {
-        $http.get(cartPathController + '/api/v1/cart/delete/clear').then(function (response) {
+        $http.get(cartPathController + '/api/v1/cart/' + $localStorage.guestUuid + '/clear').then(function (response) {
             $scope.loadProductsFromCart();
         });
     };
 
     $scope.addToCart = function (productId) {
-        $http.get(cartPathController + '/api/v1/cart/add/' + productId).then(function (response) {
+        $http.get(cartPathController + '/api/v1/cart/' + $localStorage.guestUuid + '/add/' + productId).then(function (response) {
             $scope.loadProductsFromCart();
         });
     };
@@ -48,12 +48,12 @@ angular.module('app').controller('cartController', function ($scope, $http, $loc
     $scope.createOrder = function () {
         if ($localStorage.currentUser) {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
-            $scope.orderInfo.username = $localStorage.currentUser.username;
+            // $scope.orderInfo.username = $localStorage.currentUser.username;
         }
         $http.post(corePathController + '/api/v1/order/create', $scope.orderInfo).then(function (response) {
             if (response.status === 201) {
                 alert("Заказ успешно создан");
-                window.location.href = startPagePathController + '/market/index.html';
+                $location.path('/orders');
             }
         }, function (response) {
             if (response.status === 401) {

@@ -4,9 +4,11 @@ server:
     context-path: /gbmarket-carts
 integrations:
   product-service:
-    url: http://localhost:5555/core/
+    url: http://localhost:8189/gbmarket-core/
     read-timeout: 10000
     write-timeout: 5000
     connect-timeout: 5000
+cart-service:
+  cart-prefix: carts_cache
 
 

@@ -57,7 +57,13 @@
             }
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
         }
+        if (!$localStorage.guestUuid) {
+            $http.get($localStorage.mainHttpPath + '/carts/api/v1/cart/generateUuid/newUuid').then(function (response) {
+                $localStorage.guestUuid = response.value;
+            });
+        }
     }
+
 })();
 
 angular.module('app').controller('indexController', function ($scope, $http, $location, $localStorage) {

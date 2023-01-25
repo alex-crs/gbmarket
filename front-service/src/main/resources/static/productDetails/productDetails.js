@@ -12,7 +12,7 @@ angular.module('app').controller('productDetailsController', function ($scope, $
     $scope.loadProductFullInfo();
 
     $scope.addToCart = function (productId) {
-        $http.get(cartPathController + '/api/v1/cart/add/' + productId).then(function (response) {
+        $http.get(cartPathController + '/api/v1/cart/' + $localStorage.guestUuid + '/add/' + productId).then(function (response) {
             alert("Товар успешно добавлен в корзину");
         }, function () {
             alert("Возникла проблема при добавлении в корзину");

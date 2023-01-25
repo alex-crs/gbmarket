@@ -18,15 +18,19 @@ import java.util.Optional;
 public class CartServiceIntegration {
     private final WebClient cartsServiceIntegrations;
 
-    public CartDTO getCart() {
-        return cartsServiceIntegrations.get().uri("api/v1/cart")
+    public CartDTO getCart(String username) {
+        return cartsServiceIntegrations.get().uri("api/v1/cart/0")
+                .header("username",username)
                 .retrieve()
                 .bodyToMono(CartDTO.class)
                 .block();
     }
 
-    public void clearCart() {
-        cartsServiceIntegrations.get().uri("api/v1/cart/delete/clear")
-                .retrieve().toBodilessEntity().block();
+    public void clearCart(String username) {
+        cartsServiceIntegrations.get().uri("api/v1/cart/0/clear")
+                .header("username",username)
+                .retrieve()
+                .toBodilessEntity()
+                .block();
     }
 }

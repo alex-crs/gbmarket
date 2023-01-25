@@ -30,15 +30,15 @@ class ProductControllerTest {
     ProductRepository productRepository;
 
     static {
-        product = new Product();
-        product.setTitle("TestProduct123");
-        product.setPrice(350);
-
-        requestViewDTO = new ViewDTO();
-        requestViewDTO.setCurrentPage(0);
-        requestViewDTO.setSortType("ASC");
-        requestViewDTO.setSortBy("id");
-        requestViewDTO.setMaxItemsOnThePage(Integer.MAX_VALUE);
+//        product = new Product();
+//        product.setTitle("TestProduct123");
+//        product.setPrice(350);
+//
+//        requestViewDTO = new ViewDTO();
+//        requestViewDTO.setCurrentPage(0);
+//        requestViewDTO.setSortType("ASC");
+//        requestViewDTO.setSortBy("id");
+//        requestViewDTO.setMaxItemsOnThePage(Integer.MAX_VALUE);
     }
 
     @Test

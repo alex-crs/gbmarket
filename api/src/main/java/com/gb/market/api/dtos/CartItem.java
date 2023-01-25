@@ -4,13 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CartItem implements Comparable<CartItem> {
     private long id;
     private String title;
-    private int price;
+    private BigDecimal price;
     private int amount;
 
     public CartItem createCartItemDTO(ProductDTO product) {

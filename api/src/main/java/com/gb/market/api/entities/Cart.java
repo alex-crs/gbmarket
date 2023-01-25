@@ -3,18 +3,21 @@ package com.gb.market.api.entities;
 import com.gb.market.api.dtos.CartItem;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Data
 public class Cart {
     private List<CartItem> cartMap;
-    private int cartCost;
+    private BigDecimal cartCost;
 
-    public List<CartItem> getCartMap() {
-        return Collections.unmodifiableList(cartMap);
-    }
+//TODO почистить
+//    public List<CartItem> getCartMap() {
+//        return Collections.unmodifiableList(cartMap);
+//    }
 
     public Cart() {
         this.cartMap = new LinkedList<>();
@@ -26,14 +29,17 @@ public class Cart {
     }
 
     public void reCalcCartCost() {
-        cartCost = 0;
-        cartMap.forEach(cartItem -> cartCost += (cartItem.getPrice() * cartItem.getAmount()));
+        cartCost = BigDecimal.ZERO;
+        cartMap.forEach(cartItem -> cartCost = cartCost.add(cartItem
+                .getPrice()
+                .multiply(BigDecimal.valueOf(cartItem.getAmount()))));
     }
 
-    public CartItem getItemByTitle(String title){
+    public CartItem getItemByTitle(String title) {
         return cartMap.stream().filter(cartItem -> cartItem.getTitle().equals(title))
                 .findFirst().orElse(null);
     }
+
     //TODO добавить возможность добавления пачки продуктов за 1 раз
     //добавляет элемент в список
     //если элемент уже существует, инкрементирует его количество
