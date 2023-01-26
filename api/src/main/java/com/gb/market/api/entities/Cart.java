@@ -14,11 +14,6 @@ public class Cart {
     private List<CartItem> cartMap;
     private BigDecimal cartCost;
 
-//TODO почистить
-//    public List<CartItem> getCartMap() {
-//        return Collections.unmodifiableList(cartMap);
-//    }
-
     public Cart() {
         this.cartMap = new LinkedList<>();
     }

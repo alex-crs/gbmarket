@@ -9,6 +9,8 @@ import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -24,23 +26,23 @@ public class CartController {
 
 
     @GetMapping("/generateUuid/newUuid")
+    @ResponseStatus(HttpStatus.OK)
     public StringResponse generateUuid(){
-        StringResponse stringResponse = new StringResponse(UUID.randomUUID().toString());
-        logger.info("Генерирую UUID");
-        return stringResponse;
+        System.out.println("ads");
+        return new StringResponse(UUID.randomUUID().toString());
     }
 
     @GetMapping("/{uuid}/add/{id}")
     public void addProductToCart(@RequestHeader(name = "username", required = false) String username,
                                  @PathVariable String uuid,
                                  @PathVariable Long id) {
-        cartService.addToCartFromBD(getCartUuid(username, uuid), id);
+        cartService.addToCartFromBD(username, uuid, id);
     }
 
     @GetMapping("/{uuid}")
     public CartDTO getCurrentCart(@RequestHeader(name = "username", required = false) String username,
                                   @PathVariable String uuid) {
-        return CartConverter.convertToCartDTO(cartService.getCurrentCart(getCartUuid(username, uuid)));
+        return CartConverter.convertToCartDTO(cartService.getCurrentCart(username, uuid));
     }
 
     @GetMapping("/{uuid}/delete/{id}")
@@ -48,27 +50,28 @@ public class CartController {
                                       @PathVariable String uuid,
                                       @PathVariable Long id) {
         if (id != null) {
-            cartService.deleteFromCart(getCartUuid(username, uuid), id);
+            cartService.deleteFromCart(username, uuid, id);
         }
     }
 
     @GetMapping("/{uuid}/clear")
     public void clearCart(@RequestHeader(name = "username", required = false) String username,
                           @PathVariable String uuid) {
-        cartService.clearCart(getCartUuid(username, uuid));
+        cartService.clearCart(username, uuid);
     }
 
     @GetMapping("/{uuid}/delete/productAmounts/{id}")
     public void deleteProductWithAmounts(@RequestHeader(name = "username", required = false) String username,
                                          @PathVariable String uuid,
                                          @PathVariable Long id) {
-        cartService.deleteFromCartWithAllAmounts(getCartUuid(username, uuid), id);
+        cartService.deleteFromCartWithAllAmounts(username, uuid, id);
     }
 
-    private String getCartUuid(String username, String uuid) {
-        if (username != null) {
-            return username;
-        }
-        return uuid;
+    @GetMapping("/{uuid}/mergeCarts")
+    @ResponseStatus(HttpStatus.OK)
+    public void mergeCarts(@RequestHeader(name = "username", required = false) String username,
+                           @PathVariable String uuid){
+        cartService.mergeCarts(username, uuid);
     }
+
 }

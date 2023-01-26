@@ -1,5 +1,6 @@
 angular.module('app').controller('authController', function ($scope, $http, $localStorage, $location) {
     const authPathController = 'http://localhost:5555/authorization';
+    const cartPathController = $localStorage.mainHttpPath + '/carts';
 
     $scope.tryToAuth = function () {
         $http.post(authPathController + '/auth', $scope.user)
@@ -10,6 +11,7 @@ angular.module('app').controller('authController', function ($scope, $http, $loc
 
                     $scope.user.username = null;
                     $scope.user.password = null;
+                    mergeCarts();
                     showUserName();
                     $location.path('/');
                 }
@@ -22,6 +24,12 @@ angular.module('app').controller('authController', function ($scope, $http, $loc
         if ($localStorage.currentUser) {
             $scope.userName = $localStorage.currentUser.username;
         }
+    }
+
+    function mergeCarts(){
+        $http.get(cartPathController + '/api/v1/cart/' + $localStorage.guestUuid + '/mergeCarts').then(function (response) {
+            alert($localStorage.currentUser.username + ", вы успешно авторизовались.")
+        });
     }
 
     showUserName();
