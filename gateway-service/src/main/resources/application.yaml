@@ -1,3 +1,8 @@
+core-srv: localhost
+cart-srv: localhost
+front-srv: localhost
+auth-srv: localhost
+gateway-srv: localhost
 server:
   port: 5555
 spring:
@@ -8,14 +13,14 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "http://localhost:8191"
+            allowedOrigins: "http://${gateway-srv}:8191"
             allowedMethods:
               -GET
               -POST
             allowedHeaders: "*"
       routes:
         - id: core-service
-          uri: http://localhost:8189
+          uri: http://${core-srv}:8189
           predicates:
             - Path=/core/**
           filters:
@@ -23,7 +28,7 @@ spring:
             - PrefixPath=/gbmarket-core
             - JwtAuthFilter
         - id: cart-service
-          uri: http://localhost:8190
+          uri: http://${cart-srv}:8190
           predicates:
             - Path=/carts/**
           filters:
@@ -31,7 +36,7 @@ spring:
             - PrefixPath=/gbmarket-carts
             - JwtAuthFilter
         - id: front-server
-          uri: http://localhost:8191
+          uri: http://${front-srv}:8191
           predicates:
             - Path=/market/**
           filters:
@@ -39,7 +44,7 @@ spring:
             - PrefixPath=/gbmarket
             - JwtAuthFilter
         - id: auth-server
-          uri: http://localhost:8989
+          uri: http://${auth-srv}:8989
           predicates:
             - Path=/authorization/**
           filters:

@@ -1,7 +1,11 @@
 package com.gb.market.carts.configs;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
@@ -12,9 +16,15 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableRedisRepositories
 public class RedisConfig {
 
+    @Value("${spring.redis.host}")
+    private String hostName;
+
     @Bean
     public JedisConnectionFactory jedisConnectionFactory(){
-        return new JedisConnectionFactory();
+        RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
+        configuration.setHostName(hostName);
+
+        return new JedisConnectionFactory(configuration);
     }
 
     @Bean
@@ -24,6 +34,12 @@ public class RedisConfig {
         redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         redisTemplate.setConnectionFactory(jedisConnectionFactory());
         return redisTemplate;
+    }
+
+    @Bean
+    @Primary
+    public RedisProperties redisProperties() {
+        return new RedisProperties();
     }
 
 }

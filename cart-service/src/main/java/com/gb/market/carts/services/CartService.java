@@ -85,7 +85,6 @@ public class CartService {
         execute(username, uuid, cart -> cart.deleteProductWithAmountsFromCart(productId));
     }
 
-    //TODO исключить удаленную корзину из редиса
     public void clearCart(String username, String uuid) {
         execute(username, uuid, Cart::clearCart);
     }

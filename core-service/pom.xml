@@ -49,6 +49,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.gb.market.market</groupId>
             <artifactId>api</artifactId>
             <version>0.0.1-SNAPSHOT</version>

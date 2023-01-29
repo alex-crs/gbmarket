@@ -28,7 +28,6 @@ public class CartController {
     @GetMapping("/generateUuid/newUuid")
     @ResponseStatus(HttpStatus.OK)
     public StringResponse generateUuid(){
-        System.out.println("ads");
         return new StringResponse(UUID.randomUUID().toString());
     }
 

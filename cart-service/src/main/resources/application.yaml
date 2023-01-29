@@ -2,6 +2,9 @@ server:
   port: 8190
   servlet:
     context-path: /gbmarket-carts
+spring:
+  redis:
+    host: localhost
 integrations:
   product-service:
     url: http://localhost:8189/gbmarket-core/
