@@ -1,9 +1,9 @@
-angular.module('app').controller('productDetailsController', function ($scope, $http, $localStorage) {
+angular.module('app').controller('productDetailsController', function ($scope, $http, $localStorage,$rootScope) {
     const corePathController = $localStorage.mainHttpPath + '/core';
     const cartPathController = $localStorage.mainHttpPath + '/carts';
 
     $scope.loadProductFullInfo = function () {
-        $http.get(corePathController + '/api/v1/products/info/' + $localStorage.selectedProduct).then(function (response) {
+        $http.get(corePathController + '/api/v1/products/info/' + $rootScope.selectedProduct).then(function (response) {
             $scope.ProductFullInfo = response.data;
         });
     };

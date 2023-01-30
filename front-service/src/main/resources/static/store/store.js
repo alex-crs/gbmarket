@@ -1,10 +1,10 @@
-angular.module('app').controller('storeController', function ($scope, $http, $location, $localStorage) {
+angular.module('app').controller('storeController', function ($scope, $http, $location, $localStorage, $rootScope) {
     const corePathController = $localStorage.mainHttpPath + '/core';
     const cartPathController = $localStorage.mainHttpPath +'/carts';
 
     let currentViewDtoCondition = function () {
-        if (!$localStorage.viewDto) {
-            $localStorage.viewDto = {
+        if (!$rootScope.viewDto) {
+            $rootScope.viewDto = {
                 "currentPage": "0",
                 "maxItemsOnThePage": "5",
                 "sortBy": "id",
@@ -15,7 +15,7 @@ angular.module('app').controller('storeController', function ($scope, $http, $lo
     currentViewDtoCondition();
 
     $scope.loadProducts = function () {
-        $http.post(corePathController + '/api/v1/products', $localStorage.viewDto).then(function (response) {
+        $http.post(corePathController + '/api/v1/products', $rootScope.viewDto).then(function (response) {
             $scope.ViewDTO = response.data;
         });
     };
@@ -69,7 +69,7 @@ angular.module('app').controller('storeController', function ($scope, $http, $lo
     }
 
     $scope.goToProductInfo = function (productId) {
-        $localStorage.selectedProduct = productId;
+        $rootScope.selectedProduct = productId;
         $location.path('/productDetails')
     };
 });

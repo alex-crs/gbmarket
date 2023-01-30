@@ -1,5 +1,5 @@
-angular.module('app').controller('ordersController', function ($scope, $http, $localStorage, $location) {
-    const corePathController = $localStorage.mainHttpPath +'/core';
+angular.module('app').controller('ordersController', function ($scope, $http, $localStorage, $location, $rootScope) {
+    const corePathController = $localStorage.mainHttpPath + '/core';
 
     $scope.loadOrders = function () {
         if ($localStorage.currentUser) {
@@ -12,7 +12,7 @@ angular.module('app').controller('ordersController', function ($scope, $http, $l
     $scope.loadOrders();
 
     $scope.goTo = function (orderId) {
-        $localStorage.currentOrder = orderId;
+        $rootScope.currentOrder = orderId;
         $location.path('/orderDetails/')
     };
 
