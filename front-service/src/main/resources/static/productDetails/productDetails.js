@@ -4,7 +4,6 @@ angular.module('app').controller('productDetailsController', function ($scope, $
 
     $scope.loadProductFullInfo = function () {
         $http.get(corePathController + '/api/v1/products/info/' + $localStorage.selectedProduct).then(function (response) {
-            delete $localStorage.selectedProduct;
             $scope.ProductFullInfo = response.data;
         });
     };

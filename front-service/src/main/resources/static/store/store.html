@@ -39,7 +39,7 @@
         <tr class="table_element" ng-repeat="p in ViewDTO.productList">
             <td ng-click="goToProductInfo(p.id)">{{p.id}}</td>
             <td ng-click="goToProductInfo(p.id)">{{p.title}}</td>
-            <td ng-click="goToProductInfo(p.id)">{{p.price}}</td>
+            <td ng-click="goToProductInfo(p.id)">{{p.price}} руб.</td>
             <td>
                 <button class="btn btn-primary" ng-click="addToCart(p.id)">Добавить в корзину</button>
             </td>

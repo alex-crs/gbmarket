@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 public class OrderDTOFullInfo {
     private Long orderId;
-    private LocalDateTime createdAt;
+    private String createdAt;
     private BigDecimal totalPrice;
     private String address;
     private String phone;

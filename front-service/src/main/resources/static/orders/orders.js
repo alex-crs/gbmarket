@@ -13,7 +13,7 @@ angular.module('app').controller('ordersController', function ($scope, $http, $l
 
     $scope.goTo = function (orderId) {
         $localStorage.currentOrder = orderId;
-        $location.path('/orderDetails')
+        $location.path('/orderDetails/')
     };
 
 });
