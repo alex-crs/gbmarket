@@ -16,7 +16,7 @@ angular.module('app').controller('startPageController', function ($rootScope, $s
     $scope.loadUserInfo();
 
     $scope.isAuthUser = function () {
-        return !!$localStorage.currentUser;
+        return !$localStorage.currentUser;
     }
 });
 

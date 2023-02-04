@@ -1,7 +1,6 @@
 angular.module('app').controller('cartController', function ($scope, $http, $localStorage, $location) {
     const corePathController = $localStorage.mainHttpPath + '/core';
     const cartPathController = $localStorage.mainHttpPath + '/carts';
-    const startPagePathController = $localStorage.mainHttpPath;
 
     $scope.loadProductsFromCart = function () {
         $http.get(cartPathController + '/api/v1/cart/' + $localStorage.guestUuid).then(function (response) {
