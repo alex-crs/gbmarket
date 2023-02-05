@@ -1,66 +1,43 @@
 package com.gb.market.auth.controllers;
 
-import com.gb.market.api.dtos.AppError;
 import com.gb.market.api.dtos.RegistrationUserDto;
-import com.gb.market.api.dtos.jwt.JwtRequest;
-import com.gb.market.api.dtos.jwt.JwtResponse;
-import com.gb.market.auth.entities.User;
-import com.gb.market.auth.services.UserService;
-import com.gb.market.auth.utils.JwtTokenUtil;
+import com.gb.market.auth.configs.KeyCloakConfig;
+import com.gb.market.auth.services.KeyCloakService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.ws.rs.core.Response;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 @RestController
-@RequiredArgsConstructor
+@Slf4j
 //@CrossOrigin("*")
 public class AuthController {
-    private final JwtTokenUtil jwtTokenUtil;
-    private final AuthenticationManager authenticationManager;
-    private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
+    private final KeyCloakService service;
+    private final KeyCloakConfig keyCloakConfig;
 
-    @PostMapping("/auth")
-    public ResponseEntity<?> createAuthToken(@RequestBody JwtRequest authRequest) {
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-        } catch (BadCredentialsException ex) {
-            return new ResponseEntity<>(new AppError(HttpStatus.UNAUTHORIZED.value(), "Incorrect username or password"), HttpStatus.UNAUTHORIZED);
-        }
-        UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
-        String token = jwtTokenUtil.generateToken(userDetails);
-
-        return ResponseEntity.ok(new JwtResponse(token));
+    public AuthController(KeyCloakService service, KeyCloakConfig keyCloakConfig) {
+        this.service = service;
+        this.keyCloakConfig = keyCloakConfig;
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<?> regUser(@RequestBody RegistrationUserDto registrationUserDto) {
-        if (registrationUserDto.getPassword().equals(registrationUserDto.getConfirmPassword())) {
-            return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), "Пароли не совпадают"),
-                    HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> addUser(@RequestBody RegistrationUserDto registrationUserDto) {
+        if (service.addUser(registrationUserDto).getStatus()==201) {
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
-        if (userService.findByUsername(registrationUserDto.getUsername()).isPresent()) {
-            return new ResponseEntity<>(
-                    new AppError(HttpStatus.BAD_REQUEST.value(), "Пользователь с таким именем уже существует"),
-                    HttpStatus.BAD_REQUEST);
-        }
-        User user = new User();
-        user.setName(registrationUserDto.getUsername());
-        user.setEmail(registrationUserDto.getEmail());
-        user.setPassword(passwordEncoder.encode(registrationUserDto.getPassword()));
-        userService.saveUser(user);
-        UserDetails userDetails = userService.loadUserByUsername(registrationUserDto.getUsername());
-        String token = jwtTokenUtil.generateToken(userDetails);//TODO Спрятать в сервис
-        return ResponseEntity.ok(new JwtResponse(token));
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-
 }
 
 

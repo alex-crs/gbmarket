@@ -34,6 +34,10 @@
                 templateUrl: 'auth/auth.html',
                 controller: 'authController'
             })
+            .when('/reg', {
+                templateUrl: 'reg/reg.html',
+                controller: 'regController'
+            })
             .when('/productDetails', {
                 templateUrl: 'productDetails/productDetails.html',
                 controller: 'productDetailsController'
@@ -66,7 +70,7 @@
 
 angular.module('app').controller('indexController', function ($scope, $http, $location, $localStorage) {
     $scope.isAuthUser = function () {
-        return !!$localStorage.currentUser;
+        return $localStorage.currentUser;
     }
 });
 

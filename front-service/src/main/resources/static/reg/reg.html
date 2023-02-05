@@ -1,0 +1,35 @@
+<div class="container" ng-controller="regController">
+
+    <div>
+        <label>
+            <h3>
+                Регистрация нового пользователя:
+            </h3>
+        </label>
+    </div>
+    <div class="password">
+        <form class="password_form" ng-submit="tryToReg()">
+            <div class="password_fields">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingUserNameInput" ng-model="registrationUserDto.username" placeholder="Логин">
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingFirstNameInput" ng-model="registrationUserDto.firstName" placeholder="Имя пользователя">
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingLastNameInput" ng-model="registrationUserDto.lastName" placeholder="Фамилия пользователя">
+                </div>
+                <div class="form-floating mb-3">
+                    <input type=email class="form-control" id="floatingEmailInput" ng-model="registrationUserDto.email" placeholder="Электронная почта">
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingPassword"  ng-model="registrationUserDto.password" placeholder="Пароль">
+                </div>
+                <div class="submit_btn">
+                    <button class="btn btn-danger" ng-href="#" type="submit">Принять</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

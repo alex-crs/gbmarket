@@ -1,8 +1,10 @@
 package com.gb.market.gateway.configs;
 
 
+import com.auth0.jwt.interfaces.Claim;
 import com.gb.market.gateway.utils.JwtTokenUtil;
 import io.jsonwebtoken.Claims;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -13,6 +15,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
+@Slf4j
 @Component
 public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Config> {
 
@@ -69,10 +74,9 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
     }
 
     private void populateRequestWithHeaders(ServerWebExchange exchange, String token) {
-        Claims claims = jwtUtil.getAllClaimsFromToken(token);
-        exchange.getRequest().mutate() //подкорректировать запрос
-                .header("username", claims.getSubject())
-//                .header("role", String.valueOf(claims.get("role")))
+        exchange.getRequest().mutate()
+                .header("username", jwtUtil.getUsernameFromToken(token))
+                .header("role", jwtUtil.getRoles(token))
                 .build();
     }
 

@@ -13,7 +13,7 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "http://${gateway-srv}:8191"
+            allowedOrigins: "http://${gateway-srv}"
             allowedMethods:
               -GET
               -POST
@@ -51,6 +51,7 @@ spring:
             - StripPrefix=1
             - PrefixPath=/gbmarket-auth
             - JwtAuthFilter
-jwt:
-  secret: fgs#$dghdfs%#$234hdfslgdfjb43t34t534og$4352
-  lifetime: 300000000
+        - id: auth-server_2
+          uri: http://${auth-srv}:8080
+          predicates:
+            - Path=/auth/**

@@ -4,19 +4,17 @@ angular.module('app').controller('startPageController', function ($rootScope, $s
     const autPathController = $localStorage.mainHttpPath + '/authorization';
 
     $scope.loadUserInfo = function () {
-        $http.get(autPathController + '/info').then(function (response) {
-            $scope.UserInfo = response.data;
-        }, function () {
-            $scope.UserInfo = {
-                "name": "Незнакомец"
-            }
-        });
+        if ($localStorage.currentUser) {
+            $scope.name = $localStorage.currentUser.username;
+        } else {
+            $scope.name = "Незнакомец";
+        }
     };
 
     $scope.loadUserInfo();
 
     $scope.isAuthUser = function () {
-        return !$localStorage.currentUser;
+        return $localStorage.currentUser;
     }
 });
 
