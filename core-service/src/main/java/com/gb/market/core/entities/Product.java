@@ -1,5 +1,7 @@
 package com.gb.market.core.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,6 +14,8 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @Table(name = "products")
+@Builder
+@AllArgsConstructor
 public class Product {
     @Id
     @Column(name = "id")

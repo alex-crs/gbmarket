@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -28,6 +29,17 @@ public class ProductController {
     @PostMapping
     public ViewDTO findAllProducts(@RequestBody ViewDTO viewDTO) {
         return ProductConverter.convertToViewDTO(productService.findAll(viewDTO));
+    }
+
+    @PostMapping("/add")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void addProduct(@RequestBody ProductFullInfo productFullInfo){
+        Product addingProduct = Product.builder()
+                .title(productFullInfo.getTitle())
+                .price(productFullInfo.getPrice())
+                .description(productFullInfo.getDescription())
+                .build();
+        productService.addProduct(addingProduct);
     }
 
     @GetMapping("/{id}")

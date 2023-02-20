@@ -1,0 +1,29 @@
+<div class="container" ng-controller="productAdderController">
+
+    <div>
+        <label>
+            <h3>
+                Добавление нового продукта:
+            </h3>
+        </label>
+    </div>
+    <div class="fields">
+        <form class="password_form" ng-submit="tryAddProduct()">
+            <div class="fields">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingProductTitleInput" ng-model="ProductFullInfo.title" placeholder="Наименование продукта">
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingPriceInput" ng-model="ProductFullInfo.price" placeholder="Стоимость продукта">
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingDescriptionInput" ng-model="ProductFullInfo.description" placeholder="Описание">
+                </div>
+                <div class="submit_btn">
+                    <button class="btn btn-danger" ng-href="#" type="submit">Принять</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

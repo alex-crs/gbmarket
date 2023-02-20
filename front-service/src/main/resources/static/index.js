@@ -38,6 +38,10 @@
                 templateUrl: 'reg/reg.html',
                 controller: 'regController'
             })
+            .when('/productFactory', {
+                templateUrl: 'productFactory/productAdder.html',
+                controller: 'productAdderController'
+            })
             .when('/productDetails', {
                 templateUrl: 'productDetails/productDetails.html',
                 controller: 'productDetailsController'
