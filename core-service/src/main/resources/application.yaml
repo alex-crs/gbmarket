@@ -3,6 +3,11 @@ server:
   servlet:
     context-path: /gbmarket-core
 spring:
+  redis:
+    host: localhost
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
   datasource:
     url: jdbc:postgresql://localhost:5432/gbmarket
     username: postgres
@@ -24,5 +29,8 @@ integrations:
     read-timeout: 10000
     write-timeout: 5000
     connect-timeout: 5000
+core-service:
+  product-cache-prefix: product_cache
+
 
 

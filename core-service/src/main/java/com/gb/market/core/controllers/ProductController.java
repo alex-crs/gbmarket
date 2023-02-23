@@ -44,8 +44,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public Product findProductByID(@PathVariable Long id) {
-        return productService.findProductById(id).orElseThrow(() ->
-                new ResourceNotFoundException("Продукт не найден, id: " + id));
+        return productService.findProductById(id);
     }
 
     @GetMapping("/delete/{id}")
@@ -56,8 +55,7 @@ public class ProductController {
 
     @GetMapping("/info/{id}")
     public ProductFullInfo findProductFullInfoByID(@PathVariable Long id) {
-        return ProductConverter.convertToProductFullInfo(productService.findProductById(id).orElseThrow(() ->
-                new ResourceNotFoundException("Продукт не найден, id: " + id)));
+        return ProductConverter.convertToProductFullInfo(productService.findProductById(id));
     }
 
 }

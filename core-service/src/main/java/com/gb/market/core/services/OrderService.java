@@ -31,9 +31,7 @@ public class OrderService {
         order.setTotalPrice(cartDTO.getCartCost());
         orderRepository.save(order);
         cartDTO.getCartMap().forEach(cartItem -> {
-            Product product = productService.findProductById(cartItem.getId())
-                    .orElseThrow(() -> new ResourceNotFoundException(
-                            String.format("Продукт с id: %s не найден", cartItem.getId())));
+            Product product = productService.findProductById(cartItem.getId());
 
             OrderItem orderItem = new OrderItem();
             orderItem.setProduct(product);
