@@ -22,8 +22,6 @@ import java.util.UUID;
 //@CrossOrigin("*") //обрабатывает любые запросы
 public class CartController {
     private final CartService cartService;
-    private final Logger logger = LoggerFactory.getLogger(CartController.class);
-
 
     @GetMapping("/generateUuid/newUuid")
     @ResponseStatus(HttpStatus.OK)
@@ -35,7 +33,7 @@ public class CartController {
     public void addProductToCart(@RequestHeader(name = "username", required = false) String username,
                                  @PathVariable String uuid,
                                  @PathVariable Long id) {
-        cartService.addToCartFromBD(username, uuid, id);
+         cartService.addToCartFromBD(username, uuid, id);
     }
 
     @GetMapping("/{uuid}")
