@@ -5,6 +5,7 @@ import com.gb.market.core.converters.ProductConverter;
 import com.gb.market.core.dtos.ProductFullInfo;
 import com.gb.market.core.dtos.ViewDTO;
 import com.gb.market.core.entities.Product;
+import com.gb.market.core.integrations.LoggerRMQBridge;
 import com.gb.market.core.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +27,12 @@ public class ProductController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
     private final ProductService productService;
 
+    private final LoggerRMQBridge loggerMQ;
+
     @PostMapping
     public ViewDTO findAllProducts(@RequestBody ViewDTO viewDTO) {
+        logger.info(ProductController.class.getSimpleName());
+        loggerMQ.sendLog(ProductController.class.getSimpleName(),"Получен список продуктов");
         return ProductConverter.convertToViewDTO(productService.findAll(viewDTO));
     }
 

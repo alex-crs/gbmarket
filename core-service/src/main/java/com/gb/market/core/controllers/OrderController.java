@@ -7,6 +7,7 @@ import com.gb.market.core.dtos.order.OrderDTOFullInfo;
 import com.gb.market.core.dtos.order.OrderDTOShort;
 import com.gb.market.api.dtos.OrderInfo;
 import com.gb.market.core.integrations.CartServiceIntegration;
+import com.gb.market.core.integrations.LoggerRMQBridge;
 import com.gb.market.core.repositories.OrderRepository;
 import com.gb.market.core.entities.Order;
 import com.gb.market.core.services.OrderService;
@@ -28,6 +29,8 @@ public class OrderController {
     private final OrderRepository orderRepository;
     private final CartServiceIntegration cartServiceIntegration;
 
+    private final LoggerRMQBridge loggerMQ;
+
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> createOrder(@RequestHeader(required = false) String username, @RequestBody OrderInfo orderInfo) {
@@ -45,6 +48,7 @@ public class OrderController {
     @GetMapping("/checkAll")
     @ResponseStatus(HttpStatus.OK)
     public List<OrderDTOShort> checkOrders(@RequestHeader String username) {
+        loggerMQ.sendLog(this.getClass().getSimpleName(),username + " запросил список заказов");
         if (username != null) {
             List<Order> orderPerUser = orderRepository.findAllByUserName(username);
             List<OrderDTOShort> ordersDTO = new ArrayList<>();
