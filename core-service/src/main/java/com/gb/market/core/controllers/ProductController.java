@@ -24,15 +24,13 @@ import java.util.List;
 @Slf4j
 //@CrossOrigin("*") //отключает CORS запрет
 public class ProductController {
-    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
     private final ProductService productService;
 
-    private final LoggerRMQBridge loggerMQ;
+    private final LoggerRMQBridge loggerMQ = new LoggerRMQBridge(ProductController.class);
 
     @PostMapping
     public ViewDTO findAllProducts(@RequestBody ViewDTO viewDTO) {
-        logger.info(ProductController.class.getSimpleName());
-        loggerMQ.sendLog(ProductController.class.getSimpleName(),"Получен список продуктов");
+        loggerMQ.sendLog("Получен список продуктов");
         return ProductConverter.convertToViewDTO(productService.findAll(viewDTO));
     }
 

@@ -29,7 +29,7 @@ public class OrderController {
     private final OrderRepository orderRepository;
     private final CartServiceIntegration cartServiceIntegration;
 
-    private final LoggerRMQBridge loggerMQ;
+    private final LoggerRMQBridge loggerMQ = new LoggerRMQBridge(OrderController.class);
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
@@ -48,7 +48,7 @@ public class OrderController {
     @GetMapping("/checkAll")
     @ResponseStatus(HttpStatus.OK)
     public List<OrderDTOShort> checkOrders(@RequestHeader String username) {
-        loggerMQ.sendLog(this.getClass().getSimpleName(),username + " запросил список заказов");
+        loggerMQ.sendLog(username + " запросил список заказов");
         if (username != null) {
             List<Order> orderPerUser = orderRepository.findAllByUserName(username);
             List<OrderDTOShort> ordersDTO = new ArrayList<>();

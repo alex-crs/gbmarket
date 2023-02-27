@@ -17,7 +17,10 @@ import java.util.concurrent.TimeoutException;
 @Component
 @RequiredArgsConstructor
 public class LoggerRMQBridge {
-    public void sendLog(String routingKey, String message) {
+
+    private Class<?> clazz;
+
+    public void sendLog(String message) {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         factory.setUsername("admin");
@@ -27,16 +30,16 @@ public class LoggerRMQBridge {
             String EXCHANGE_NAME = "core_log";
             channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
 
-            channel.basicPublish(EXCHANGE_NAME, routingKey, null, message.getBytes(StandardCharsets.UTF_8));
-            log.info("[!!!] отправляется сообщение " + routingKey + " : " + message + ".");
+            channel.basicPublish(EXCHANGE_NAME, clazz.getSimpleName(), null, message.getBytes(StandardCharsets.UTF_8));
+            log.info("[!!!] отправляется сообщение " + clazz.getSimpleName() + " : " + message + ".");
 
         } catch (IOException | TimeoutException e) {
             e.printStackTrace();
         }
     }
 
-
-
-
+    public LoggerRMQBridge(Class<?> clazz) {
+        this.clazz = clazz;
+    }
 
 }
